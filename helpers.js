@@ -79,3 +79,25 @@ function send_notification({type = "default", message = "", template = "", optio
     window.addEventListener('resize', adjustMargin);
     adjustMargin(); // Initial adjustment
 }
+
+document.onclick = function(event) {
+    // Check if the clicked element has the "modal" class
+    if (event.target.classList.contains("modal")) {
+        event.target.style.display = "none"; // Hide the modal directly if clicked on the overlay
+    } else {
+        // Check if the click is inside a modal-content to avoid closing when clicking inside the modal
+        let isClickInsideModalContent = event.target.closest(".modal-content");
+
+        // If there is no modal-content ancestor, it means the click is outside the modal content
+        if (!isClickInsideModalContent) {
+            // Find all modals
+            let modals = document.querySelectorAll('.modal');
+            modals.forEach(function(modal) {
+                // Check if the event target is inside this modal but not inside modal-content
+                if (modal.contains(event.target) && !modal.querySelector('.modal-content').contains(event.target)) {
+                    modal.style.display = 'none'; // Hide the modal
+                }
+            });
+        }
+    }
+};

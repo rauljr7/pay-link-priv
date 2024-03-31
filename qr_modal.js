@@ -49,14 +49,6 @@ function showModal() {
     document.getElementById("qrModal").style.display = "block"; // Show the modal
 }
 
-// Hide the modal when clicking outside of it
-window.onclick = function(event) {
-    let modal = document.getElementById("qrModal");
-    if (event.target == modal) {
-        modal.style.display = "none"; // Hide the modal
-    }
-}
-
 // Example trigger for the modal
 document.getElementById("gen-qr").onclick = function() {
     showModal();
