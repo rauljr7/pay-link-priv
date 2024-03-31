@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <script src="https://pay-link-raul.netlify.app/url_handler.js"></script>
+    <script src="https://pay-link-raul.netlify.app/helpers.js"></script>
+    <script src="https://pay-link-raul.netlify.app/payments.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payment</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/minstyle.io@2.0.2/dist/css/minstyle.io.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pay-link-raul.netlify.app/style.css">
+  </head>
+  <body>
+    <div class="container ms-mt-1">
+      <div id="qrModal" class="modal">
+        <div style=" display: flex;justify-content: center;" class="modal-content">
+          <div id="qr"></div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-lg">
+        <div class="ms-user ms-fill">
+            <div class="ms-avatar ms-large">
+                <img
+                    class="ms-avatar-img"
+                    src="https://assets.rauluriartejr.com/public/images/ClearAvatar.png"
+                />
+            </div>
+            <div class="ms-user-info">
+                <p>
+                    <b>Raúl Uriarte, Jr.</b><br />
+                    <i>@rauljr7</i><br />
+                    <div style="margin-top:7px">
+                      <a href="https://github.com/rauljr7" class="ms-btn ms-small ms-secondary" ><i class="fab fa-github fa-lg"></i></a>
+                      <a href="https://twitter.com/dev_rauljr" class="ms-btn ms-small ms-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                      <a href="https://instagram.com/dev_rauljr" class="ms-btn ms-small ms-secondary" ><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </p>
+            </div>
+            <div class="ms-user-content">
+                <div class="ms-form-group">
+                <label class="ms-text-center" for="amount">Amount (USD)</label>
+                  <input style="font-size:50px;border-radius:5px" class="ms-large ms-text-center" type="text" id="amount" step="0.01" min="0.01" placeholder="1.00" value="">
+                </div>
+                <div class="spinner-container" id="loading">
+                    <div class="spinner"></div>
+                </div>
+                <div id="payment-methods" class="hide">
+                  <div style="margin-bottom:6px;padding-left:6px;padding-right:6px;" class="ms-form-group">
+                    <input style="border-width:1px;border-color:#909697;border-radius:5px" type="email" class="ms-medium" placeholder="youremail@email.com">
+                </div>
+                  <div id="pay-card">
+                    <div class="" id="card-number-field-container"></div>
+                    <div style="--bs-gutter-x: 0rem" class="row">
+                    <div class="col" id="card-expiry-field-container"></div>
+                    <div class="col" id="card-cvv-field-container"></div>
+                  </div>
+                  </div>
+                  <div style="padding-left:6px;padding-right:6px;padding-bottom:8px" id="pay-paypal"></div>
+                  <div style="padding-left:6px;padding-right:6px;padding-bottom:8px" id="pay-venmo"></div>
+                  <div style="padding-left:6px;padding-right:6px;padding-bottom:8px" id="pay-apple-pay-div"></div>
+                  <div style="padding-left:6px;padding-right:6px;padding-bottom:8px;margin-left:1px;margin-right:1px;height:48px" id="pay-google-pay"></div>
+                </div>
+                <p id="result-message"></p>
+            </div>
+            <div class="ms-user-pined">
+              <a ><i style="cursor:pointer;font-size:1rem" id="moon" alt="Toggle Dark Mode" class="fas fa-moon fa-lg"></i></a>
+              <a ><i style="cursor:pointer;font-size:1rem" id="gen-qr" alt="Generate QR Code" class="fas fa-qrcode fa-lg"></i></a>
+              <a ><i style="cursor:pointer;font-size:1rem" id="donate" alt="Donate" class="fas fa-gift fa-lg"></i></a>
+              <a ><i style="cursor:pointer;font-size:1rem" id="recurring" alt="Recurring Payment" class="fas fa-refresh fa-lg"></i></a>
+              <a ><i style="cursor:pointer;font-size:1rem" id="share" alt="Share" class="fas fa-copy fa-lg"></i></a>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm"></div>
+    </div>
+  </div>
+  <script src="https://pay-link-raul.netlify.app/usd_currency.js" async defer></script>
+  <script src="https://pay-link-raul.netlify.app/qr.js"></script>
+  <script src="https://pay-link-raul.netlify.app/qr_modal.js"></script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+apple-pay-button {
+  --apple-pay-button-width: 100%;
+  --apple-pay-button-height: 45px;
+  --apple-pay-button-border-radius: 5px;
+  --apple-pay-button-padding: 0px 0px;
+  --apple-pay-button-box-sizing: border-box;
+}
+#pay-google-pay .gpay-button-fill .gpay-button {
+  margin: 0 !important;
+}
+.spinner-container {
+    position: relative;
+    padding-top:135px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes flyIn {
+  from {transform: translateY(-100%);}
+  to {transform: translateY(0);}
+}
+.close {cursor: pointer; padding-left: 10px;}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: red;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hide {
+    display: none;
+}
+
+#payment-methods {
+    opacity: 0;
+    transition: opacity 2s ease-out;
+}
+
+.fade-in {
+    opacity: 1 !important;
+}
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 500; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 400px; /* Maximum width */
+  border-radius: 10px; /* Rounded corners */
+  position: relative;
+  animation: modalFadeIn .5s, zoomIn .5s; /* Fade in and zoom in animation */
+}
+
+@keyframes modalFadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes zoomIn {
+  from {transform: scale(0.5);}
+  to {transform: scale(1);}
+}
