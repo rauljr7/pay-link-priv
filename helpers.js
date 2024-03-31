@@ -60,7 +60,7 @@ function send_notification({type = "default", message = "", template = "", optio
 
     // Overlay
     if (options.overlay) {
-        document.getElementById("modal-verlay").style.display = "block";
+        document.getElementById("modal-overlay").style.display = "block";
     }
 
     // Adjust margins for different screen sizes
