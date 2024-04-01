@@ -1,9 +1,11 @@
+let paypal_client_id;
 const init = async () => {
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let fetch_options = { "method": "POST", "body": "" };
   fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": document.getElementById("turstile_id").value });
   let paypal_client_id_response = await fetch(payment_endpoint, fetch_options).then(response => response.json());
-  let paypal_client_id = paypal_client_id_response.paypal_client_id;
+  paypal_client_id = paypal_client_id_response.paypal_client_id;
+
   const init_functions = () => {
     console.log(paypal_client_id);
     const pay_operation = (object) => {
@@ -39,8 +41,6 @@ const init = async () => {
           document.head.appendChild(script);
       });
     }
-    //pay_operation({"method": "get_client_id"}).then(async(pay) => { return await pay.json()}).then((payload) => {console.log(payload);});
-    //new fetch code goes
     const paypal_script_object = {
       "client-id": "AbAnMDTMIq0lBrP_NV12I9QcU494ZtfLYQcdIk1y_vOae8g24zpO12WAqn5MA8buSahDzR9UrpGls30f",
       "currency": "USD",
