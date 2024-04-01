@@ -33,7 +33,7 @@ function load_paypal_script_tag(baseUrl, params = {}) {
       document.head.appendChild(script);
   });
 }
-pay_operation({"method": "get_client_id"}).then(async(pay) => { return await payload.json()}).then((payload) => {console.log(payload);});
+pay_operation({"method": "get_client_id"}).then(async(pay) => { return await pay.json()}).then((payload) => {console.log(payload);});
 //new fetch code goes
 const paypal_script_object = {
   "client-id": "AbAnMDTMIq0lBrP_NV12I9QcU494ZtfLYQcdIk1y_vOae8g24zpO12WAqn5MA8buSahDzR9UrpGls30f",
