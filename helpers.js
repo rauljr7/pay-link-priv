@@ -81,9 +81,11 @@ function send_notification({type = "default", message = "", template = "", optio
 }
 
 document.onclick = function(event) {
-    // Check if the clicked element has the "modal" class
     if (event.target.id === "modal-overlay") {
-        event.target.style.display = "none"; // Hide the modal directly if clicked on the overlay
+        event.target.style.display = "none";
+    }
+    if (event.target.classList.contains("modal")) {
+        event.target.style.display = "none";
     }
     document.querySelectorAll(".notification-modal").forEach((element) => {
         element.remove();
