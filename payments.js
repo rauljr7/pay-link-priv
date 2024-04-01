@@ -20,10 +20,8 @@ function turnstile_load() {
 turnstile_load();
 //init();
 
-
-
-
 const init = async (token) => {
+  console.log(token);
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let fetch_options = { "method": "POST", "body": "" };
   fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": document.getElementById("turstile_id").value });
