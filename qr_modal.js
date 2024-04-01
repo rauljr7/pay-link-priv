@@ -46,7 +46,7 @@ function usd_amount_sanitize(amount_string) {
 // Show the modal with QR code
 function showModal() {
     generateQRCode(); // Generate QR code with the current payment_link
-    document.getElementById("modal-overlay").style.display = "block"; // Show the modal
+    document.getElementById("qr-modal").style.display = "block"; // Show the modal
 }
 
 // Example trigger for the modal
