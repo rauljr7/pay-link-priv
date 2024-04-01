@@ -1,11 +1,11 @@
+let paypal_client_id;
 const init = async () => {
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let fetch_options = { "method": "POST", "body": "" };
   fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": document.getElementById("turstile_id").value });
   let paypal_client_id_request = await fetch(payment_endpoint, fetch_options);
   let paypal_client_id_response = await paypal_client_id_request.json();
-  let paypal_client_id = paypal_client_id_response.paypal_client_id;
-  console.log(paypal_client_id);
+  paypal_client_id = paypal_client_id_response.paypal_client_id;
   window.addEventListener("load", async (event) => {
 console.log(paypal_client_id);
     const pay_operation = (object) => {
