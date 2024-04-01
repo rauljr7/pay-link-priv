@@ -23,7 +23,7 @@ turnstile_load();
 const init = async (token) => {
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let fetch_options = { "method": "POST", "body": "" };
-  fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": document.getElementById("turstile_id").value });
+  fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": token });
   let paypal_client_id_response = await fetch(payment_endpoint, fetch_options).then(response => response.json());
   paypal_client_id = paypal_client_id_response.paypal_client_id;
   console.log(paypal_client_id);
