@@ -3,14 +3,13 @@ window.onloadTurnstileCallback = function () {
   turnstile.render('#turstile_id', {
       sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS', // Replace with your site key
       callback: function(token) {
-          console.log(`Challenge Success ${token}`);
-          // Further actions upon successful token retrieval
+          init(token);
       }
   });
 };
 
 // Function to dynamically load the Turnstile script with the onload callback
-function loadTurnstileScript() {
+function turnstile_load() {
   const script = document.createElement('script');
   script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback";
   script.defer = true; // Use defer to ensure it does not block the parsing of the document
@@ -18,12 +17,13 @@ function loadTurnstileScript() {
 }
 
 // Call the function to load the script
-loadTurnstileScript();
+turnstile_load();
+//init();
 
 
 
 
-const init = async () => {
+const init = async (token) => {
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let fetch_options = { "method": "POST", "body": "" };
   fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": document.getElementById("turstile_id").value });
