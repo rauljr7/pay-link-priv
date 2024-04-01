@@ -19,7 +19,7 @@ function send_notification({type = "default", message = "", template = "", optio
         "warn": "orange",
         "alert": "#e87474",
         "success": "green",
-        "info": "c6c906",
+        "info": "#c6c906",
         "default": "#a5a5a5"
     };
 
