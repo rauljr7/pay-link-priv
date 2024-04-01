@@ -14,7 +14,7 @@ function send_notification({type = "default", message = "", template = "", optio
     }
 
     // Map type to colors
-    const typeToColor = {
+    const type_to_color = {
         "warning": "orange",
         "warn": "orange",
         "alert": "#e87474",
@@ -26,7 +26,7 @@ function send_notification({type = "default", message = "", template = "", optio
     // Create the notification element
     const notification = document.createElement("div");
     notification.className = `modal-content notification-modal fade-in notification ${type}`;
-    notification.style.backgroundColor = typeToColor[type] || "#a5a5a5";
+    notification.style.backgroundColor = type_to_color[type] || "#a5a5a5";
     notification.innerHTML = options.x ? `${message} <span class="close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><title>c-remove</title><g fill="#F7F7F7"><path d="M8,0C3.6,0,0,3.6,0,8s3.6,8,8,8,8-3.6,8-8S12.4,0,8,0Zm3.182,9.768c.195,.195,.195,.512,0,.707l-.707,.707c-.195,.195-.512,.195-.707,0l-1.768-1.768-1.768,1.768c-.195,.195-.512,.195-.707,0l-.707-.707c-.195-.195-.195-.512,0-.707l1.768-1.768-1.768-1.768c-.195-.195-.195-.512,0-.707l.707-.707c.195-.195,.512-.195,.707,0l1.768,1.768,1.768-1.768c.195-.195,.512-.195,.707,0l.707,.707c.195,.195,.195,.512,0,.707l-1.768,1.768,1.768,1.768Z" fill="#F7F7F7"></path></g></svg></span>` : message;
 
     // Apply styles for notification positioning

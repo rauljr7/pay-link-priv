@@ -30,7 +30,7 @@ function load_paypal_script_tag(baseUrl, params = {}) {
       document.head.appendChild(script);
   });
 }
-
+console.log(payment_link);
 const paypal_script_object = {
   "client-id": "AbAnMDTMIq0lBrP_NV12I9QcU494ZtfLYQcdIk1y_vOae8g24zpO12WAqn5MA8buSahDzR9UrpGls30f",
   "currency": "USD",
