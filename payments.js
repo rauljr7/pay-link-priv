@@ -31,9 +31,9 @@ function load_paypal_script_tag(baseUrl, params = {}) {
   });
 }
 let paypal_script_intent;
-if (paymentLink.type === "one-time") {
+if (payment_link.type === "one-time") {
   paypal_script_intent = "capture";
-} else if (paymentLink.type === "recurring") {
+} else if (payment_link.type === "recurring") {
   paypal_script_intent = "vault";
 } else {
   paypal_script_intent = "capture"; // Default to "capture"
