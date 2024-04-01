@@ -47,7 +47,8 @@ function send_notification({type = "default", message = "", template = "", optio
     if (options.x) {
         const closeBtn = notification.querySelector('.close');
         closeBtn.addEventListener('click', function() {
-            notification.style.display = 'none';
+            notification.remove();
+            document.querySelector("#modal-overlay").style.display = "none";
         });
     }
 
@@ -55,6 +56,7 @@ function send_notification({type = "default", message = "", template = "", optio
         setTimeout(() => {
             if (notification) {
                 notification.remove();
+                document.querySelector("#modal-overlay").style.display = "none";
             }
         }, 5000);
     }
@@ -75,7 +77,7 @@ function send_notification({type = "default", message = "", template = "", optio
     };
 
     window.addEventListener('resize', adjustMargin);
-    adjustMargin(); // Initial adjustment
+    adjustMargin();
 }
 
 document.onclick = function(event) {
