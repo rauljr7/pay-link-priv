@@ -1,3 +1,20 @@
+const pay_operation = (object) => {
+  const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
+  let fetch_options = { "method": "POST", "body": "" };
+  if (object.method === "order") {
+    fetch_options.body = JSON.stringify({ "method": "order", "amount": document.getElementById("amount").value });
+  } else
+  if (object.method === "complete") {
+    fetch_options.body = JSON.stringify({ "method": "complete", "order_id": object.order_id });
+  } else
+  if (object.method === "get_client_id") {
+    fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": document.getElementById("turstile_id").value });
+  }
+
+  let request = fetch(payment_endpoint, fetch_options);
+  return request;
+}
+
 window.addEventListener("load", async (event) => {
 
 const pay_operation = (object) => {
