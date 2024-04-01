@@ -1,27 +1,25 @@
-function loadTurnstileScript() {
-  return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script); // Append the script to the head
+// Define the onload callback function
+window.onloadTurnstileCallback = function () {
+  turnstile.render('#example-container', {
+      sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS', // Replace with your site key
+      callback: function(token) {
+          console.log(`Challenge Success ${token}`);
+          // Further actions upon successful token retrieval
+      }
   });
+};
+
+// Function to dynamically load the Turnstile script with the onload callback
+function loadTurnstileScript() {
+  const script = document.createElement('script');
+  script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback";
+  script.defer = true; // Use defer to ensure it does not block the parsing of the document
+  document.head.appendChild(script); // Append the script to the head
 }
 
 // Call the function to load the script
-loadTurnstileScript().then(() => {
-  turnstile.ready(function () {
-      turnstile.render('#turnstil_id', {
-          sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
-          callback: function(token) {
-              console.log(`Challenge Success ${token}`);
-              // Here you can add additional code to handle the Turnstile token
-          }
-      });
-  });
-}).catch(error => {
-  console.error("Failed to load the Turnstile script", error);
-});
+loadTurnstileScript();
+
 
 
 
