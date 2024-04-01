@@ -1,13 +1,28 @@
-let paypal_client_id;
-
-turnstile.ready(function () {
-  turnstile.render('#turnstil_id', {
-      sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
-      callback: function(token) {
-          console.log(`Challenge Success ${token}`);
-      }
+function loadTurnstileScript() {
+  return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script); // Append the script to the head
   });
+}
+
+// Call the function to load the script
+loadTurnstileScript().then(() => {
+  turnstile.ready(function () {
+      turnstile.render('#turnstil_id', {
+          sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
+          callback: function(token) {
+              console.log(`Challenge Success ${token}`);
+              // Here you can add additional code to handle the Turnstile token
+          }
+      });
+  });
+}).catch(error => {
+  console.error("Failed to load the Turnstile script", error);
 });
+
 
 
 const init = async () => {
