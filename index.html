@@ -14,10 +14,9 @@
     <link rel="stylesheet" type="text/css" href="https://pay-link-raul.netlify.app/style.css">
   </head>
   <body>
-    <input id="turstile_id">
+    <input type="hidden" id="turstile_id">
     <script>
     function turstile_id (payload) {
-      console.log(payload);
       document.getElementById("turstile_id").value = payload;
       }
       </script>
