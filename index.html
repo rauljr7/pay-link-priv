@@ -18,6 +18,7 @@
     <script>
     function turstile_id (payload) {
       document.getElementById("turstile_id").value = payload;
+pay_operation({"method": "get_client_id"}).then(async(pay) => { return await pay.json()}).then((payload) => {console.log(payload);});
       }
       </script>
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAWGXMWIf7aN7NSS" data-callback="turstile_id"></div>
