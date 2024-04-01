@@ -14,11 +14,11 @@
     <link rel="stylesheet" type="text/css" href="https://pay-link-raul.netlify.app/style.css">
   </head>
   <body>
-    <input type="text" id="turstile_id">
+    <input type="hidden" id="turstile_id">
     <script>
-    function turstile_id (payload) {
-      document.getElementById("turstile_id").value = payload;
-pay_operation({"method": "get_client_id"}).then(async(pay) => { return await pay.json()}).then((payload) => {console.log(payload);});
+      function turstile_id (payload) {
+        document.getElementById("turstile_id").value = payload;
+        init();
       }
       </script>
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAWGXMWIf7aN7NSS" data-callback="turstile_id"></div>
