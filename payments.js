@@ -1,16 +1,14 @@
 // Define the onload callback function
-window.onloadTurnstileCallback = function () {
+window.turnstile_loaded = function () {
   turnstile.render('#turstile_id', {
       sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
-      callback: function(token) {
-          init(token);
-      }
+      callback: init
   });
 };
 
 function turnstile_load() {
   const script = document.createElement('script');
-  script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback";
+  script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=turnstile_loaded";
   script.defer = true;
   document.head.appendChild(script);
 }
@@ -21,9 +19,9 @@ turnstile_load();
 
 const init = async (token) => {
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
-  let fetch_options = { "method": "POST", "body": "" };
-  fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": token });
-  let paypal_client_id_response = await fetch(payment_endpoint, fetch_options).then(response => response.json());
+  let client_id_fetch_options = { "method": "POST", "body": "" };
+  client_id_fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": token });
+  let paypal_client_id_response = await fetch(payment_endpoint, client_id_fetch_options).then(response => response.json());
   paypal_client_id = paypal_client_id_response.paypal_client_id;
   
   const paypal_script_object = {
@@ -33,7 +31,6 @@ const init = async (token) => {
     "components": "googlepay,buttons,card-fields,applepay"
   };
 
-  
   const pay_operation = (object) => {
     const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
     let fetch_options = { "method": "POST", "body": "" };
@@ -42,9 +39,6 @@ const init = async (token) => {
     } else
     if (object.method === "complete") {
       fetch_options.body = JSON.stringify({ "method": "complete", "order_id": object.order_id });
-    } else
-    if (object.method === "get_client_id") {
-      fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": document.getElementById("turstile_id").value });
     }
   
     let request = fetch(payment_endpoint, fetch_options);
