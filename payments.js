@@ -8,6 +8,9 @@ const pay_operation = (object) => {
   } else
   if (object.method === "complete") {
     fetch_options.body = JSON.stringify({ "method": "complete", "order_id": object.order_id });
+  } else
+  if (object.method === "get_client_id") {
+    fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": object.turnstile_id });
   }
 
   let request = fetch(payment_endpoint, fetch_options);
@@ -30,6 +33,8 @@ function load_paypal_script_tag(baseUrl, params = {}) {
       document.head.appendChild(script);
   });
 }
+
+//new fetch code goes
 const paypal_script_object = {
   "client-id": "AbAnMDTMIq0lBrP_NV12I9QcU494ZtfLYQcdIk1y_vOae8g24zpO12WAqn5MA8buSahDzR9UrpGls30f",
   "currency": "USD",

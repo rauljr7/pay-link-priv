@@ -14,6 +14,14 @@
     <link rel="stylesheet" type="text/css" href="https://pay-link-raul.netlify.app/style.css">
   </head>
   <body>
+    <input id="turstile_id">
+    <script>
+    function turstile_id (payload) {
+      console.log(payload);
+      document.getElementById("turstile_id").value = payload;
+      }
+      </script>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAWGXMWIf7aN7NSS" data-callback="turstile_id"></div>
     <div class="container ms-mt-1">
       <div id="modal-overlay" class="modal"> 
       </div>
