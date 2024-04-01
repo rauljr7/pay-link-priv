@@ -1,6 +1,6 @@
 // Define the onload callback function
 window.onloadTurnstileCallback = function () {
-  turnstile.render('#example-container', {
+  turnstile.render('#turstile_id', {
       sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS', // Replace with your site key
       callback: function(token) {
           console.log(`Challenge Success ${token}`);
