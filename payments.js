@@ -1,4 +1,15 @@
 let paypal_client_id;
+
+turnstile.ready(function () {
+  turnstile.render('#turnstil_id', {
+      sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
+      callback: function(token) {
+          console.log(`Challenge Success ${token}`);
+      }
+  });
+});
+
+
 const init = async () => {
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let fetch_options = { "method": "POST", "body": "" };
