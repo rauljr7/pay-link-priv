@@ -32,7 +32,6 @@ const init = async (token) => {
   };
 
   const pay_operation = (object) => {
-    const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
     let fetch_options = { "method": "POST", "body": "" };
     if (object.method === "order") {
       fetch_options.body = JSON.stringify({ "method": "order", "amount": document.getElementById("amount").value });
