@@ -26,8 +26,8 @@ function send_notification({type = "default", message = "", template = "", optio
     // Create the notification element
     const notification = document.createElement("div");
     notification.className = `modal-content notification-modal fade-in notification ${type}`;
-    notification.style.backgroundColor = typeToColor[type] || "lightbeige";
-    notification.innerHTML = options.x ? `${message} <span class="close">&times;</span>` : message;
+    notification.style.backgroundColor = typeToColor[type] || "#feffef";
+    notification.innerHTML = options.x ? `${message} <span class="close"><i class="fab fa-times-circle fa-lg"></i></span>` : message;
 
     // Apply styles for notification positioning
     notification.style.position = "fixed";
