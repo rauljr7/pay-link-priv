@@ -30,19 +30,10 @@ function load_paypal_script_tag(baseUrl, params = {}) {
       document.head.appendChild(script);
   });
 }
-let paypal_script_intent;
-if (payment_link.type === "one-time") {
-  paypal_script_intent = "capture";
-} else if (payment_link.type === "recurring") {
-  paypal_script_intent = "vault";
-} else {
-  paypal_script_intent = "capture"; // Default to "capture"
-}
 const paypal_script_object = {
   "client-id": "AbAnMDTMIq0lBrP_NV12I9QcU494ZtfLYQcdIk1y_vOae8g24zpO12WAqn5MA8buSahDzR9UrpGls30f",
   "currency": "USD",
   "enable-funding": "venmo",
-  "intent": paypal_script_intent,
   "components": "googlepay,buttons,card-fields,applepay"
 };
 
