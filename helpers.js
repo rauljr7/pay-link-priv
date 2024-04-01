@@ -25,7 +25,7 @@ function send_notification({type = "default", message = "", template = "", optio
 
     // Create the notification element
     const notification = document.createElement("div");
-    notification.className = `modal-content fade-in notification ${type}`;
+    notification.className = `modal-content notification-modal fade-in notification ${type}`;
     notification.style.backgroundColor = typeToColor[type] || "lightbeige";
     notification.innerHTML = options.x ? `${message} <span class="close">&times;</span>` : message;
 
@@ -51,10 +51,11 @@ function send_notification({type = "default", message = "", template = "", optio
         });
     }
 
-    // Auto-remove after 5 seconds if not persistent
     if (!options.persist) {
         setTimeout(() => {
-            notification.remove();
+            if (notification) {
+                notification.remove();
+            }
         }, 5000);
     }
 
@@ -82,4 +83,7 @@ document.onclick = function(event) {
     if (event.target.id === "modal-overlay") {
         event.target.style.display = "none"; // Hide the modal directly if clicked on the overlay
     }
+    document.querySelectorAll(".notification-modal").forEach((element) => {
+        element.remove();
+    })
 };
