@@ -162,6 +162,7 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
     payment_options_object.createOrder = create_order_func;
   } else
   if (payment_link.type === "recurring") {
+    delete payment_options_object.createOrder;
     payment_options_object.createVaultSetupToken = create_vault_setup_token_func;
     payment_options_object.onApprove = async ({ vaultSetupToken }) => {
       vault_setup_token_string = vaultSetupToken;
