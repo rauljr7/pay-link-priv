@@ -114,11 +114,11 @@ const init = async (token) => {
       });
   }
 
-  const create_order_func = async (data, actions) => {
-    console.log(data);
+  const create_order_func = async (payload) => {
       try {
           let paypal_order_request = await pay_operation({
-              "method": "order"
+              "method": "order",
+              "payment_source": payload.paymentSource
           });
           let paypal_order_response = await paypal_order_request.json();
           if (!paypal_order_response.id) {
