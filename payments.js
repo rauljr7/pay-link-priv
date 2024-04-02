@@ -14,7 +14,7 @@ function turnstile_load() {
 }
 
 // Call the function to load the script
-//turnstile_load();
+turnstile_load();
 
 const init = async (token) => {
   if (!token) {
@@ -474,4 +474,4 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
 
 }
 
-init();
+//init();
