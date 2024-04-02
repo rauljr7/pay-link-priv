@@ -124,18 +124,16 @@ const init = async (token) => {
     
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
   .then(() => {
-    const renders = [];
-  
+    const renders_array = [];
     payment_options_object.fundingSource = paypal.FUNDING.PAYPAL;
     let paypal_button = window.paypal.Buttons(payment_options_object);
     if (paypal_button.isEligible()) {
-        renders.push(paypal_button.render("#pay-paypal"));
+        renders_array.push(paypal_button.render("#pay-paypal"));
     }
-    
     payment_options_object.fundingSource = paypal.FUNDING.VENMO;
     let venmo_button = window.paypal.Buttons(payment_options_object);
     if (venmo_button.isEligible()) {
-        renders.push(venmo_button.render("#pay-venmo"));
+        renders_array.push(venmo_button.render("#pay-venmo"));
     }
     
     const card_style = {
@@ -154,11 +152,11 @@ const init = async (token) => {
     
     if (card_fields.isEligible()) {
         const number_field = card_fields.NumberField();
-        renders.push(number_field.render("#card-number-field-container"));
+        renders_array.push(number_field.render("#card-number-field-container"));
         const cvv_field = card_fields.CVVField();
-        renders.push(cvv_field.render("#card-cvv-field-container"));
+        renders_array.push(cvv_field.render("#card-cvv-field-container"));
         const expiry_field = card_fields.ExpiryField();
-        renders.push(expiry_field.render("#card-expiry-field-container"));
+        renders_array.push(expiry_field.render("#card-expiry-field-container"));
     
         // Raul adjust this
         document.addEventListener('keydown', function(event) {
@@ -169,14 +167,14 @@ const init = async (token) => {
             }
         });
     }
-    Promise.all(renders).then(async () => {
-      if (paypal.Googlepay) {
+    Promise.all(renders_array).then(async () => {
+/*       if (paypal.Googlepay) {
         load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
           onGooglePayLoaded().catch(console.error);
         }).catch(error => {
           console.error("Error loading Google Pay SDK:", error);
         });
-      }
+      } */
       await new Promise(resolve => setTimeout(resolve, 2000));
       document.getElementById("loading").classList.add("hide");
       const paymentMethods = document.getElementById("payment-methods");
