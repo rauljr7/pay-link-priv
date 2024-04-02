@@ -1,16 +1,11 @@
-let turnstile_loaded_once = false;
+window.turnstile_loaded_once = false;
 
 // Define the onload callback function
 window.turnstile_loaded = function () {
-  console.log("turnstile_loaded_once:");
-  console.log(turnstile_loaded_once);
-  if (turnstile_loaded_once === false) {
-    turnstile_loaded_once = true;
     turnstile.render('#turstile_id', {
         sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
         callback: init
     });
-  }
 };
 
 function turnstile_load() {
@@ -26,6 +21,13 @@ turnstile_load();
 const init = async (token) => {
   if (!token) {
     token = "";
+  }
+  console.log("turnstile_loaded_once:");
+  console.log(turnstile_loaded_once);
+  if (window.turnstile_loaded_once === false) {
+    window.turnstile_loaded_once = true;
+  } else {
+    return;
   }
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let client_id_fetch_options = { "method": "POST", "body": "" };
