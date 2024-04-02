@@ -158,7 +158,7 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
       console.error(err);
     }
   };
-/*   if (payment_link.type === "one-time") {
+  if (payment_link.type === "one-time") {
     payment_options_object.createOrder = create_order_func;
   } else
   if (payment_link.type === "recurring") {
@@ -174,7 +174,7 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
         resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
       }
     }
-  }  */
+  } 
 
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
   .then(() => {
