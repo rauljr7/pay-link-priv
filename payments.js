@@ -14,10 +14,13 @@ function turnstile_load() {
 }
 
 // Call the function to load the script
-turnstile_load();
-//init();
+//turnstile_load();
+init();
 
 const init = async (token) => {
+  if (!token) {
+    token = "";
+  }
   const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
   let client_id_fetch_options = { "method": "POST", "body": "" };
   client_id_fetch_options.body = JSON.stringify({ "method": "get_client_id", "turnstile_id": token, "intent": payment_link.type });
