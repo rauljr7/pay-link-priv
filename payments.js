@@ -150,12 +150,12 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
   } else
   if (payment_link.type === "recurring") {
     payment_options_object.createVaultSetupToken = create_vault_setup_token_func;
-    payment_options_object.onApprove = ({ vaultSetupToken }) => {
+    /* payment_options_object.onApprove = ({ vaultSetupToken }) => {
       console.log(vaultSetupToken);
           return fetch("example.com/create/payment/token", {
             body: JSON.stringify({ vaultSetupToken })
           })
-      }
+      } */
   }
     
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
