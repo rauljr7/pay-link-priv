@@ -31,7 +31,7 @@ const init = async (token) => {
     "components": "googlepay,buttons,card-fields,applepay"
   };
   if (payment_link.type === "recurring") {
-    paypal_script_object["data-user-id-token"] = paypal_client_id_response.id_token;
+    paypal_script_object["data-client-token"] = paypal_client_id_response.id_token;
   }
 
   const pay_operation = (object) => {
