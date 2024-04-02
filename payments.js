@@ -75,51 +75,55 @@ const init = async (token) => {
         document.head.appendChild(script);
     });
 }
+
+const create_order_func = async () => {
+  try {
+    let paypal_order_request = await pay_operation({"method": "order"});
+    let paypal_order_response = await paypal_order_request.json();
+    if (!paypal_order_response.id) {
+      let paypal_error_detail = paypal_order_response?.details?.[0];
+      let paypal_error_message;
+      if (paypal_error_detail) {
+        paypal_error_message = `${error_details.issue} ${error_details.description} (${paypal_order_response.debug_id})`;
+      } else {
+        paypal_error_detail = JSON.stringify(paypal_order_response);
+      }
+      throw new Error(paypal_error_message);
+    }
+    return paypal_order_response.id;
+  } catch (error) {
+    console.error(error);
+    resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
+  }
+}
+
+const on_approve_func = async (data, actions) => {
+  try {
+    let paypal_complete_request = await pay_operation({"method": "complete", "order_id": data.orderID});
+    let paypal_complete_response = await paypal_complete_request.json();
+    let complete_error_detail = paypal_complete_response?.details?.[0];
+    if (complete_error_detail?.issue === "INSTRUMENT_DECLINED") {
+      return actions.restart();
+    } else if (complete_error_detail) {
+      throw new Error(`${complete_error_detail.description} (${paypal_complete_response.debug_id})`);
+    } else if (!paypal_complete_response.purchase_units) {
+      throw new Error(JSON.stringify(paypal_complete_response));
+    } else {
+      let transaction =
+        paypal_complete_response?.purchase_units?.[0]?.payments?.captures?.[0] ||
+        paypal_complete_response?.purchase_units?.[0]?.payments?.authorizations?.[0];
+        console.log( "Capture result", paypal_complete_response, JSON.stringify(paypal_complete_response, null, 2),);
+        resultMessage( `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`, );
+    }
+  } catch (error) {
+    console.error(error);
+    resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
+  }
+}
   
   let payment_options_object = {
-      async createOrder() {
-        try {
-          let paypal_order_request = await pay_operation({"method": "order"});
-          let paypal_order_response = await paypal_order_request.json();
-          if (!paypal_order_response.id) {
-            let paypal_error_detail = paypal_order_response?.details?.[0];
-            let paypal_error_message;
-            if (paypal_error_detail) {
-              paypal_error_message = `${error_details.issue} ${error_details.description} (${paypal_order_response.debug_id})`;
-            } else {
-              paypal_error_detail = JSON.stringify(paypal_order_response);
-            }
-            throw new Error(paypal_error_message);
-          }
-          return paypal_order_response.id;
-        } catch (error) {
-          console.error(error);
-          resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
-        }
-      },
-      async onApprove(data, actions) {
-        try {
-          let paypal_complete_request = await pay_operation({"method": "complete", "order_id": data.orderID});
-          let paypal_complete_response = await paypal_complete_request.json();
-          let complete_error_detail = paypal_complete_response?.details?.[0];
-          if (complete_error_detail?.issue === "INSTRUMENT_DECLINED") {
-            return actions.restart();
-          } else if (complete_error_detail) {
-            throw new Error(`${complete_error_detail.description} (${paypal_complete_response.debug_id})`);
-          } else if (!paypal_complete_response.purchase_units) {
-            throw new Error(JSON.stringify(paypal_complete_response));
-          } else {
-            let transaction =
-              paypal_complete_response?.purchase_units?.[0]?.payments?.captures?.[0] ||
-              paypal_complete_response?.purchase_units?.[0]?.payments?.authorizations?.[0];
-              console.log( "Capture result", paypal_complete_response, JSON.stringify(paypal_complete_response, null, 2),);
-              resultMessage( `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`, );
-          }
-        } catch (error) {
-          console.error(error);
-          resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
-        }
-      },
+      "createOrder": create_order_func,
+      "onApprove": on_approve_func,
     };
     
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
@@ -168,13 +172,13 @@ const init = async (token) => {
         });
     }
     Promise.all(renders_array).then(async () => {
-/*       if (paypal.Googlepay) {
+      if (paypal.Googlepay) {
         load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
           onGooglePayLoaded().catch(console.error);
         }).catch(error => {
           console.error("Error loading Google Pay SDK:", error);
         });
-      } */
+      }
       await new Promise(resolve => setTimeout(resolve, 2000));
       document.getElementById("loading").classList.add("hide");
       const paymentMethods = document.getElementById("payment-methods");
