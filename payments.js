@@ -30,8 +30,9 @@ const init = async (token) => {
     "enable-funding": "venmo",
     "components": "googlepay,buttons,card-fields,applepay"
   };
+  let paypal_script_attributes = {};
   if (payment_link.type === "recurring") {
-    paypal_script_object["data-client-token"] = paypal_client_id_response.id_token;
+    paypal_script_attributes = { "data-user-id-token": paypal_client_id_response.id_token};
   }
 
   const pay_operation = (object) => {
@@ -47,22 +48,33 @@ const init = async (token) => {
     return request;
   }
   
-  function load_paypal_script_tag(baseUrl, params = {}) {
+  function load_script_tag(baseUrl, params = {}, attributes = {}) {
     return new Promise((resolve, reject) => {
-        // Check if params is not empty, then prepare paramString
+        // Prepare query string from params if any
         const paramString = Object.keys(params).length > 0
             ? '?' + Object.entries(params)
                 .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
                 .join('&')
             : '';
         const fullUrl = `${baseUrl}${paramString}`;
+
+        // Create script element
         const script = document.createElement('script');
         script.src = fullUrl;
+
+        // Set additional attributes on the script tag
+        Object.entries(attributes).forEach(([key, value]) => {
+            script.setAttribute(key, value);
+        });
+
+        // Resolve or reject the promise based on the script loading
         script.onload = () => resolve(script);
         script.onerror = () => reject(new Error(`Script load error for ${fullUrl}`));
+
+        // Append script to the document head
         document.head.appendChild(script);
     });
-  }
+}
   
   let payment_options_object = {
       async createOrder() {
@@ -110,7 +122,7 @@ const init = async (token) => {
       },
     };
     
-  load_paypal_script_tag("https://www.paypal.com/sdk/js", paypal_script_object)
+  load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
   .then(() => {
     const renders = [];
   
@@ -159,7 +171,7 @@ const init = async (token) => {
     }
     Promise.all(renders).then(async () => {
       if (paypal.Googlepay) {
-        load_paypal_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
+        load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
           onGooglePayLoaded().catch(console.error);
         }).catch(error => {
           console.error("Error loading Google Pay SDK:", error);
@@ -411,7 +423,7 @@ const init = async (token) => {
     document.getElementById("pay-apple-pay").addEventListener("click", handle_apple_pay_click);
   }
   if (typeof ApplePaySession !== 'undefined' && ApplePaySession.supportsVersion(4) && ApplePaySession.canMakePayments()) {
-    load_paypal_script_tag('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js').then(() => {
+    load_script_tag('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js').then(() => {
       setup_apple_pay().catch(error => {
         console.error(error);
       });
