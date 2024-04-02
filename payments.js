@@ -30,6 +30,9 @@ const init = async (token) => {
     "enable-funding": "venmo",
     "components": "googlepay,buttons,card-fields,applepay"
   };
+  if (payment_link.type === "recurring") {
+    paypal_script_object["data-user-id-token"] = paypal_client_id_response.id_token;
+  }
 
   const pay_operation = (object) => {
     let fetch_options = { "method": "POST", "body": "" };
