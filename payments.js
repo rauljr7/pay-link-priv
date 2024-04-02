@@ -47,7 +47,7 @@ const init = async (token) => {
   const pay_operation = (pay_operation_object) => {
     let fetch_options = { "method": "POST", "body": "" };
     if (pay_operation_object.method === "order") {
-      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "amount": document.getElementById("amount").value });
+      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "amount": document.getElementById("amount").value, "type": payment_link.type });
     } else
     if (pay_operation_object.method === "complete") {
       fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "order_id": pay_operation_object.order_id });
@@ -147,8 +147,18 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
   }
 }
   let payment_options_object;
-  payment_options_object = { "onApprove": on_approve_func };
-  if (payment_link.type === "one-time") {
+  payment_options_object =
+  {
+    "onApprove": on_approve_func,
+    "createOrder": create_order_func,
+    onCancel(data, actions) {
+      console.log(`Order Canceled - ID: ${data.orderID}`);
+    },
+    onError(err) {
+      console.error(err);
+    }
+  };
+/*   if (payment_link.type === "one-time") {
     payment_options_object.createOrder = create_order_func;
   } else
   if (payment_link.type === "recurring") {
@@ -164,7 +174,7 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
         resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
       }
     }
-  } 
+  }  */
 
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
   .then(() => {
