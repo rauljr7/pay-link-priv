@@ -15,7 +15,6 @@ function turnstile_load() {
 
 // Call the function to load the script
 //turnstile_load();
-init();
 
 const init = async (token) => {
   if (!token) {
@@ -457,3 +456,5 @@ const on_approve_func = async (data, actions) => {
   });
 
 }
+
+init();
