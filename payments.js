@@ -49,13 +49,16 @@ const init = async (token) => {
   const pay_operation = (object) => {
     let fetch_options = { "method": "POST", "body": "" };
     if (object.method === "order") {
-      fetch_options.body = JSON.stringify({ "method": "order", "amount": document.getElementById("amount").value });
+      fetch_options.body = JSON.stringify({ "method": object.method, "amount": document.getElementById("amount").value });
     } else
     if (object.method === "complete") {
-      fetch_options.body = JSON.stringify({ "method": "complete", "order_id": object.order_id });
+      fetch_options.body = JSON.stringify({ "method": object.method, "order_id": object.order_id });
     } else
     if (object.method === "setup_token") {
-      fetch_options.body = JSON.stringify({ "method": "setup_token", "payment_source": object.payment_source });
+      fetch_options.body = JSON.stringify({ "method": object.method, "payment_source": object.payment_source });
+    } else
+    if (object.method === "setup_vault") {
+      fetch_options.body = JSON.stringify({ "method": object.method, "setup_vault_token": object.setup_vault_token });
     }
   
     let request = fetch(payment_endpoint, fetch_options);
@@ -152,11 +155,15 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
   } else
   if (payment_link.type === "recurring") {
     payment_options_object.createVaultSetupToken = create_vault_setup_token_func;
-    payment_options_object.onApprove = ({ vaultSetupToken }) => {
-      console.log(vaultSetupToken);
-          return fetch("example.com/create/payment/token", {
-            body: JSON.stringify({ vaultSetupToken })
-          })
+    payment_options_object.onApprove = async ({ vaultSetupToken }) => {
+      vault_setup_token_string = vaultSetupToken;
+      try {
+        let setup_vault_request = await pay_operation({"method": "setup_vault", "setup_vault_token": vault_setup_token_string});
+        let setup_vault_response = await setup_vault_request.json();
+        console.log(setup_vault_response);
+      } catch (error) {
+        console.error(error);
+        resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
       }
   }
     
