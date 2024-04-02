@@ -35,7 +35,7 @@ const init = async (token) => {
   client_id_fetch_options.body = JSON.stringify({
       "method": "get_client_id",
       "turnstile_id": token,
-      "intent": payment_link.type
+      "type": payment_link.type
   });
   let paypal_client_id_response = await fetch(payment_endpoint, client_id_fetch_options).then(response => response.json());
   paypal_client_id = paypal_client_id_response.paypal_client_id;
@@ -62,7 +62,8 @@ const init = async (token) => {
           fetch_options.body = JSON.stringify({
               "method": pay_operation_object.method,
               "amount": document.getElementById("amount").value,
-              "intent": payment_link.type
+              "type": payment_link.type,
+              "payment_source": pay_operation_object.payment_source
           });
       } else
       if (pay_operation_object.method === "complete") {
@@ -113,7 +114,8 @@ const init = async (token) => {
       });
   }
 
-  const create_order_func = async () => {
+  const create_order_func = async (data, actions) => {
+    console.log(data);
       try {
           let paypal_order_request = await pay_operation({
               "method": "order"
