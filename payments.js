@@ -22,8 +22,6 @@ const init = async (token) => {
   if (!token) {
     token = "";
   }
-  console.log("turnstile_loaded_once:");
-  console.log(turnstile_loaded_once);
   if (window.turnstile_loaded_once === false) {
     window.turnstile_loaded_once = true;
   } else {
@@ -46,50 +44,50 @@ const init = async (token) => {
     paypal_script_attributes = { "data-user-id-token": paypal_client_id_response.id_token};
   }
 
-  const pay_operation = (object) => {
+  const pay_operation = (pay_operation_object) => {
     let fetch_options = { "method": "POST", "body": "" };
-    if (object.method === "order") {
-      fetch_options.body = JSON.stringify({ "method": object.method, "amount": document.getElementById("amount").value });
+    if (pay_operation_object.method === "order") {
+      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "amount": document.getElementById("amount").value });
     } else
-    if (object.method === "complete") {
-      fetch_options.body = JSON.stringify({ "method": object.method, "order_id": object.order_id });
+    if (pay_operation_object.method === "complete") {
+      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "order_id": pay_operation_object.order_id });
     } else
-    if (object.method === "setup_token") {
-      fetch_options.body = JSON.stringify({ "method": object.method, "payment_source": object.payment_source });
+    if (pay_operation_object.method === "setup_token") {
+      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "payment_source": pay_operation_object.payment_source });
     } else
-    if (object.method === "setup_vault") {
-      fetch_options.body = JSON.stringify({ "method": object.method, "setup_vault_token": object.setup_vault_token });
+    if (pay_operation_object.method === "setup_vault") {
+      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "setup_vault_token": pay_operation_object.setup_vault_token });
     }
   
-    let request = fetch(payment_endpoint, fetch_options);
-    return request;
+    let pay_operation_request = fetch(payment_endpoint, fetch_options);
+    return pay_operation_request;
   }
   
-  function load_script_tag(baseUrl, params = {}, attributes = {}) {
+  function load_script_tag(script_base_url, script_query_params = {}, attributes = {}) {
     return new Promise((resolve, reject) => {
-        // Prepare query string from params if any
-        const paramString = Object.keys(params).length > 0
-            ? '?' + Object.entries(params)
+        // Prepare query string from script_query_params if any
+        const query_params_string = Object.keys(script_query_params).length > 0
+            ? '?' + Object.entries(script_query_params)
                 .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
                 .join('&')
             : '';
-        const fullUrl = `${baseUrl}${paramString}`;
+        const combined_url = `${script_base_url}${query_params_string}`;
 
         // Create script element
-        const script = document.createElement('script');
-        script.src = fullUrl;
+        const script_element = document.createElement('script');
+        script_element.src = combined_url;
 
         // Set additional attributes on the script tag
         Object.entries(attributes).forEach(([key, value]) => {
-            script.setAttribute(key, value);
+            script_element.setAttribute(key, value);
         });
 
         // Resolve or reject the promise based on the script loading
-        script.onload = () => resolve(script);
-        script.onerror = () => reject(new Error(`Script load error for ${fullUrl}`));
+        script_element.onload = () => resolve(script_element);
+        script_element.onerror = () => reject(new Error(`Script load error for ${combined_url}`));
 
         // Append script to the document head
-        document.head.appendChild(script);
+        document.head.appendChild(script_element);
     });
 }
 
@@ -167,7 +165,7 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
       }
     }
   } 
-  
+
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
   .then(() => {
     const renders_array = [];
