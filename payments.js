@@ -165,8 +165,9 @@ const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
         console.error(error);
         resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
       }
-  }
-    
+    }
+  } 
+  
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
   .then(() => {
     const renders_array = [];
