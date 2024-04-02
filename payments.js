@@ -47,7 +47,7 @@ const init = async (token) => {
   const pay_operation = (pay_operation_object) => {
     let fetch_options = { "method": "POST", "body": "" };
     if (pay_operation_object.method === "order") {
-      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "amount": document.getElementById("amount").value, "type": payment_link.type });
+      fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "amount": document.getElementById("amount").value, "intent": payment_link.type });
     } else
     if (pay_operation_object.method === "complete") {
       fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "order_id": pay_operation_object.order_id });
