@@ -44,6 +44,9 @@ const init = async (token) => {
     } else
     if (object.method === "complete") {
       fetch_options.body = JSON.stringify({ "method": "complete", "order_id": object.order_id });
+    } else
+    if (object.method === "setup_token") {
+      fetch_options.body = JSON.stringify({ "method": "setup_token", "payment_source": object.payment_source });
     }
   
     let request = fetch(payment_endpoint, fetch_options);
@@ -122,11 +125,25 @@ const on_approve_func = async (data, actions) => {
     resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
   }
 }
-  
-  let payment_options_object = {
-      "createOrder": create_order_func,
-      "onApprove": on_approve_func,
-    };
+const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
+  try {
+    let vault_setup_token_request = await pay_operation({"method": "setup_token", "payment_source": payment_source});
+    let vault_setup_token_response = await vault_setup_token_request.json();
+    console.log(vault_setup_token_response);
+    return vault_setup_token_response.token;
+  } catch (error) {
+    console.error(error);
+    resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
+  }
+}
+  let payment_options_object;
+  payment_options_object = { "onApprove": on_approve_func };
+  if (payment_link.type === "one-time") {
+    payment_options_object.createOrder = create_order_func;
+  } else
+  if (payment_link.type === "recurring") {
+    payment_options_object.createVaultSetupToken = create_vault_setup_token_func;
+  }
     
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes)
   .then(() => {
