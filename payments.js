@@ -269,7 +269,7 @@ const init = async (token) => {
         });
     }
     Promise.all(renders_array).then(async () => {
-        if (paypal.Googlepay) {
+        if (paypal.Googlepay && payment_link.type !== "recurring") {
             load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
                 onGooglePayLoaded().catch(console.error);
             }).catch(error => {
