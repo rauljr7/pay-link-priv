@@ -210,6 +210,21 @@ const init = async (token) => {
     }  */
 
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes).then(() => {
+    //Apple Pay
+    if (typeof ApplePaySession !== 'undefined' && ApplePaySession.supportsVersion(4) && ApplePaySession.canMakePayments()) {
+        load_script_tag('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js').then(() => {
+            setup_apple_pay().catch(error => {
+                console.error(error);
+            });
+        }).catch(error => {
+            console.error(error);
+            document.getElementById("pay-apple-pay-div").style.display = "none";
+        });
+    } else {
+        document.getElementById("pay-apple-pay-div").style.display = "none";
+        console.log("Apple Pay is not supported on this browser or device.");
+    }
+
     const renders_array = [];
     payment_options_object.fundingSource = paypal.FUNDING.PAYPAL;
     let paypal_button = window.paypal.Buttons(payment_options_object);
@@ -578,19 +593,6 @@ const init = async (token) => {
           apple_pay_session.begin();
       }
       document.getElementById("pay-apple-pay").addEventListener("click", handle_apple_pay_click);
-  }
-  if (typeof ApplePaySession !== 'undefined' && ApplePaySession.supportsVersion(4) && ApplePaySession.canMakePayments()) {
-      load_script_tag('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js').then(() => {
-          setup_apple_pay().catch(error => {
-              console.error(error);
-          });
-      }).catch(error => {
-          console.error(error);
-          document.getElementById("pay-apple-pay-div").style.display = "none";
-      });
-  } else {
-      document.getElementById("pay-apple-pay-div").style.display = "none";
-      console.log("Apple Pay is not supported on this browser or device.");
   }
 
   function resultMessage(message) {
