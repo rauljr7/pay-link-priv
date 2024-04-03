@@ -115,6 +115,7 @@ const init = async (token) => {
   }
 
   const create_order_func = async (payload) => {
+    console.log(payload.paymentSource);
       try {
           let paypal_order_request = await pay_operation({
               "method": "order",
