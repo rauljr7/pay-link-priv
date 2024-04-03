@@ -182,7 +182,7 @@ const init = async (token) => {
   if (payment_link.label === "donate") {
     label = "donate";
   } else
-  if (payment_link.label === "subscribe") {
+  if (payment_link.label === "sub") {
     label = "subscribe";
   }
   payment_options_object = {
