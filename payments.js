@@ -275,6 +275,8 @@ const init = async (token) => {
             }).catch(error => {
                 console.error("Error loading Google Pay SDK:", error);
             });
+        } else {
+            document.getElementById("pay-google-pay").remove();
         }
         await new Promise(resolve => setTimeout(resolve, 2000));
         document.getElementById("loading").classList.add("hide");
