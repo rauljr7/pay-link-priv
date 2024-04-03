@@ -555,7 +555,8 @@ const init = async (token) => {
           apple_pay_session.onpaymentauthorized = async (event) => {
               try {
                   const apple_pay_order_request = await pay_operation({
-                      "method": "order"
+                      "method": "order",
+                      "payment_source": "apple_pay"
                   });
                   const apple_pay_order_response = await apple_pay_order_request.json();
                   if (!apple_pay_order_response.id) {
