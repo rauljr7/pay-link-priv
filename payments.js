@@ -491,20 +491,34 @@ const init = async (token) => {
           throw new Error("applepay is not eligible");
       }
       document.getElementById("pay-apple-pay-div").innerHTML = '<apple-pay-button id="pay-apple-pay" buttonstyle="black" type="plain" locale="en">';
+      function getCurrentDateTimeISO() {
+        return new Date().toISOString();
+      }
       async function handle_apple_pay_click() {
-          const paymentRequest = {
-              countryCode,
-              currencyCode: 'USD',
-              merchantCapabilities,
-              supportedNetworks,
-              requiredBillingContactFields: ["name", "phone", "email", "postalAddress"],
-              requiredShippingContactFields: [],
-              total: {
-                  label: "Demo (Card is not charged)",
-                  amount: document.getElementById("amount").value,
-                  type: "final",
-              },
-          };
+            const paymentRequest = {
+                countryCode,
+                currencyCode: 'USD',
+                merchantCapabilities,
+                supportedNetworks,
+                requiredBillingContactFields: ["name", "phone", "email", "postalAddress"],
+                requiredShippingContactFields: [],
+                total: {
+                    label: "Demo (Card is not charged)",
+                    amount: document.getElementById("amount").value,
+                    type: "final",
+                },
+            };
+            if (payment_link.type === "recurring") {
+                let recurringStartDate = getCurrentDateTimeISO();
+                paymentRequest.lineItems = [
+                    {
+                        label: "Recurring",
+                        amount: document.getElementById("amount").value,
+                        paymentTiming: "recurring",
+                        recurringPaymentStartDate: recurringStartDate
+                    }
+                ];
+            }
           let apple_pay_session = new ApplePaySession(4, paymentRequest);
           apple_pay_session.onvalidatemerchant = (event) => {
               applepay.validateMerchant({
