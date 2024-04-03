@@ -519,7 +519,6 @@ const init = async (token) => {
                 merchantCapabilities,
                 supportedNetworks,
                 requiredBillingContactFields: ["name", "phone", "email", "postalAddress"],
-                requiredShippingContactFields: [],
                 total: {
                     label: "Demo (Card is not charged)",
                     amount: document.getElementById("amount").value,
@@ -570,8 +569,7 @@ const init = async (token) => {
                   await applepay.confirmOrder({
                       orderId: order_id,
                       token: event.payment.token,
-                      billingContact: event.payment.billingContact,
-                      shippingContact: event.payment.shippingContact
+                      billingContact: event.payment.billingContact
                   });
                   pay_operation({
                       "method": "complete",
