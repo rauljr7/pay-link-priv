@@ -509,6 +509,7 @@ const init = async (token) => {
                 },
             };
             if (payment_link.type === "recurring") {
+                console.log("ap recurring!");
                 let recurringStartDate = getCurrentDateTimeISO();
                 paymentRequest.lineItems = [
                     {
@@ -518,6 +519,7 @@ const init = async (token) => {
                         recurringPaymentStartDate: recurringStartDate
                     }
                 ];
+                console.log(paymentRequest);
             }
           let apple_pay_session = new ApplePaySession(4, paymentRequest);
           apple_pay_session.onvalidatemerchant = (event) => {
