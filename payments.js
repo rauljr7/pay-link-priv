@@ -221,7 +221,7 @@ const init = async (token) => {
             document.getElementById("pay-apple-pay-div").style.display = "none";
         });
     } else {
-        document.getElementById("pay-apple-pay-div").style.display = "none";
+        document.getElementById("pay-apple-pay-div").remove();
         console.log("Apple Pay is not supported on this browser or device.");
     }
 
@@ -506,6 +506,7 @@ const init = async (token) => {
       } = await applepay.config();
       if (!isEligible) {
           throw new Error("applepay is not eligible");
+          document.getElementById("pay-apple-pay-div").remove();
       }
       document.getElementById("pay-apple-pay-div").innerHTML = '<apple-pay-button id="pay-apple-pay" buttonstyle="black" type="plain" locale="en">';
       function getCurrentDateTimeISO() {
