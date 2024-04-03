@@ -166,7 +166,29 @@ const init = async (token) => {
       }
   }
   let payment_options_object;
+  let label;
+  if (payment_link.label === "logo") {
+    label = "paypal";
+  } else
+  if (payment_link.label === "checkout") {
+    label = "checkout";
+  } else
+  if (payment_link.label === "pay") {
+    label = "pay";
+  } else
+  if (payment_link.label === "buy") {
+    label = "buynow";
+  } else
+  if (payment_link.label === "donate") {
+    label = "donate";
+  } else
+  if (payment_link.label === "subscribe") {
+    label = "subscribe";
+  }
   payment_options_object = {
+        "style": {
+            "label": label,
+        },
       "onApprove": on_approve_func,
       "createOrder": create_order_func,
       onCancel(data, actions) {
