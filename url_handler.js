@@ -17,7 +17,7 @@ function parse_url() {
             payment_link_object.user = url_partial.substring(1); // Remove '@'
         } else if (url_partial.length === 3 && /^[A-Z]{3}$/.test(url_partial)) { // Currency code
             payment_link_object.currency = url_partial;
-        } else if (/^\d+(\.\d+)?$/.test(url_partial)) { // Matches a number with optional decimal part
+        } else if (/^\d*(\.\d+)?$/.test(url_partial)) { // Matches a number with optional leading digits and decimal part
             payment_link_object.amount = url_partial;
         }
     });        
