@@ -85,7 +85,7 @@ document.onclick = function(event) {
         event.target.style.display = "none";
     } else
     if (event.target.id === "donate") {
-        build_payment_link_url.label = "donate";//
+        payment_link.label = "donate";//
         window.location.href = build_payment_link_url();
     }
     if (event.target.classList.contains("modal")) {
