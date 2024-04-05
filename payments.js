@@ -16,7 +16,7 @@ function turnstile_load() {
 }
 
 // Call the function to load the script
-turnstile_load();
+//turnstile_load();
 
 const init = async (token) => {
   if (!token) {
@@ -73,15 +73,6 @@ const init = async (token) => {
               "order_id": pay_operation_object.order_id
           });
       }
-
-      /*//For vault without purchase
-        else
-      if (pay_operation_object.method === "setup_token") {
-        fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "payment_source": pay_operation_object.payment_source });
-      } else
-      if (pay_operation_object.method === "setup_vault") {
-        fetch_options.body = JSON.stringify({ "method": pay_operation_object.method, "setup_vault_token": pay_operation_object.setup_vault_token });
-      } */
 
       let pay_operation_request = fetch(payment_endpoint, fetch_options);
       return pay_operation_request;
@@ -664,4 +655,4 @@ const init = async (token) => {
 
 }
 
-//init();
+init();
