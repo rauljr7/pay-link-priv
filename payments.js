@@ -116,7 +116,6 @@ const init = async (token) => {
   }
 
   const create_order_func = async (payload) => {
-    console.log(payload.paymentSource);
       try {
           let paypal_order_request = await pay_operation({
               "method": "order",
@@ -250,9 +249,7 @@ const init = async (token) => {
 
     const renders_array = [];
     payment_options_object.fundingSource = paypal.FUNDING.PAYPAL;
-    console.log(payment_options_object);
     let paypal_button = window.paypal.Buttons(payment_options_object);
-    console.log(paypal_button);
     if (paypal_button.isEligible()) {
         renders_array.push(paypal_button.render("#pay-paypal"));
     }
