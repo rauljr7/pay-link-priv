@@ -478,6 +478,7 @@ const init = async (token) => {
       paymentsClient.loadPaymentData(paymentDataRequest);
   }
   async function processPayment(paymentData) {
+    console.log(paymentData);
       return new Promise(async function(resolve, reject) {
           try {
               const order_request = await pay_operation({
