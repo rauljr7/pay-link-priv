@@ -17,27 +17,33 @@ const usd_input = (function() {
 
     function handle_input(e) {
         let value = input_element.value;
-        if (e.key === 'Backspace') {
-            value = '0' + value.substring(0, value.length - 1);
-        } else {
-            value += e.key.match(/\d/) ? e.key : '';
+        // Remove non-numeric chars except for the first character if it's a decimal point
+        value = value.replace(/[^0-9.]+/g, '');
+        // Prevent more than one decimal point
+        value = value.replace(/(\..*)\./g, '$1');
+        // Ensure the value starts with "0." if it starts with a decimal point for correct formatting
+        if (value.startsWith('.')) {
+            value = '0' + value;
         }
         input_element.value = format_input_value(value);
-        input_element.setSelectionRange(input_element.value.length, input_element.value.length);
         update_shadow_object();
+        // Set the caret position to the end of the input
+        input_element.setSelectionRange(input_element.value.length, input_element.value.length);
         e.preventDefault();
     }
-
+    
     function bind_listeners() {
-        input_element.addEventListener('keydown', handle_input);
+        // Listen to 'input' event for broader device compatibility
+        input_element.addEventListener('input', handle_input);
         input_element.addEventListener('click', () => {
             input_element.setSelectionRange(input_element.value.length, input_element.value.length);
         });
     }
-
+    
+    // Adjust `unbind_listeners` function accordingly
     function unbind_listeners() {
-        document.removeEventListener('keydown', handle_input);
-    }
+        input_element.removeEventListener('input', handle_input);
+    }    
 
     return {
         bind(selector) {
