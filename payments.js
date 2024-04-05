@@ -429,9 +429,23 @@ const init = async (token) => {
    */
   function addGooglePayButton() {
       const paymentsClient = getGooglePaymentsClient();
+      if (payment_link.type === "sub") {
+        google_pay_button_label = "subscribe";
+    } else {
+        const google_pay_label_mapping = {
+            "logo": "plain",
+            "donate": "donate",
+            "donation": "donate",
+            "checkout": "checkout",
+            "buy": "buy",
+            "pay": "pay"
+        };
+    
+        var google_pay_button_label = google_pay_label_mapping[payment_link.label] || "plain";
+    }
       const button = paymentsClient.createButton({
           buttonColor: 'black',
-          buttonType: 'plain',
+          buttonType: google_pay_button_label,
           buttonSizeMode: 'fill',
           onClick: onGooglePaymentButtonClicked
       });
