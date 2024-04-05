@@ -56,21 +56,6 @@ apple-pay-button {
     opacity: 1 !important;
 }
 
-.apms-fade-in {
-  opacity: 1;
-  transition: opacity 0.5s ease-in;
-}
-
-.fade-out {
-  opacity: 0;
-  transition: opacity 0.5s ease-out;
-  display: none !important; /* Ensures the element is not clickable or interactable when invisible */
-}
-
-.hidden {
-  display: none !important;
-}
-
 /* Modal Styles */
 .modal {
   display: none; /* Hidden by default */
