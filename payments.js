@@ -241,15 +241,6 @@ const init = async (token) => {
         renders_array.push(cvv_field.render("#card-cvv-field-container"));
         const expiry_field = card_fields.ExpiryField();
         renders_array.push(expiry_field.render("#card-expiry-field-container"));
-
-        // Raul adjust this
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                card_fields.submit().then((res) => {
-                    console.log(res);
-                });
-            }
-        });
     }
     Promise.all(renders_array).then(async () => {
         if (paypal.Googlepay && payment_link.type !== "sub") {
@@ -612,6 +603,12 @@ const init = async (token) => {
       const container = document.querySelector("#result-message");
       container.innerHTML = message;
   }
+
+  document.getElementById('card_submit_button').addEventListener('click', function() {
+    card_fields.submit().then((res) => {
+        console.log(res);
+    });
+  });
 
   document.getElementById('moon').addEventListener('click', function() {
       const doc_elem = document.documentElement;
