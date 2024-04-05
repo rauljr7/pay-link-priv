@@ -229,24 +229,24 @@ const init = async (token) => {
                 onBlur: function(data) {
                     const cardSubmitButtonDiv = document.getElementById("card_submit_button_div");
                     const apmsDiv = document.getElementById("apms");
-                    cardSubmitButtonDiv.classList.remove('fade-in');
+                    cardSubmitButtonDiv.classList.remove('apms-fade-in');
                     cardSubmitButtonDiv.classList.add('fade-out');
                     setTimeout(() => {
                         cardSubmitButtonDiv.classList.add('hidden');
                     }, 500);
                     apmsDiv.classList.remove('hidden', 'fade-out');
-                    apmsDiv.classList.add('fade-in');
+                    apmsDiv.classList.add('apms-fade-in');
                 },
                 onFocus: function(data) {
                     const cardSubmitButtonDiv = document.getElementById("card_submit_button_div");
                     const apmsDiv = document.getElementById("apms");
-                    apmsDiv.classList.remove('fade-in');
+                    apmsDiv.classList.remove('apms-fade-in');
                     apmsDiv.classList.add('fade-out');
                     setTimeout(() => {
                         apmsDiv.classList.add('hidden');
                     }, 500);
                     cardSubmitButtonDiv.classList.remove('hidden', 'fade-out');
-                    cardSubmitButtonDiv.classList.add('fade-in');
+                    cardSubmitButtonDiv.classList.add('apms-fade-in');
                 }
             }
             
