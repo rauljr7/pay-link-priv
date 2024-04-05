@@ -23,18 +23,18 @@ function parse_url() {
     });        
     return payment_link_object;
 }
-function usd_amount_sanitize(amount_string) {
-    if (amount_string.endsWith(".00")) {
-    return amount_string.slice(0, -3);
-    }
-    return amount_string;
-}
 function reverse_usd_amount_sanitize(amount_string) {
-    if (!amount_string.includes(".")) {
+    let parts = amount_string.split(".");
+    if (parts.length === 1) {
         return amount_string + ".00";
+    } else {
+        let leftOfDecimal = parts[0] === "" ? "0" : parts[0];
+        let rightOfDecimal = parts[1].length === 1 ? parts[1] + "0" : parts[1];
+        rightOfDecimal = rightOfDecimal.substring(0, 2);
+        return leftOfDecimal + "." + rightOfDecimal;
     }
-    return amount_string;
 }
+
 
 window.payment_link = parse_url();
 document.addEventListener('DOMContentLoaded', function() {
