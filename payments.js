@@ -80,28 +80,19 @@ const init = async (token) => {
 
   function load_script_tag(script_base_url, script_query_params = {}, attributes = {}) {
       return new Promise((resolve, reject) => {
-          // Prepare query string from script_query_params if any
           const query_params_string = Object.keys(script_query_params).length > 0 ?
               '?' + Object.entries(script_query_params)
               .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
               .join('&') :
               '';
           const combined_url = `${script_base_url}${query_params_string}`;
-
-          // Create script element
           const script_element = document.createElement('script');
           script_element.src = combined_url;
-
-          // Set additional attributes on the script tag
           Object.entries(attributes).forEach(([key, value]) => {
               script_element.setAttribute(key, value);
           });
-
-          // Resolve or reject the promise based on the script loading
           script_element.onload = () => resolve(script_element);
           script_element.onerror = () => reject(new Error(`Script load error for ${combined_url}`));
-
-          // Append script to the document head
           document.head.appendChild(script_element);
       });
   }
@@ -190,38 +181,6 @@ const init = async (token) => {
       }
   };
 
-  /* //For vault without purchase
-    const create_vault_setup_token_func = async ({payment_source} = "paypal") => {
-      try {
-        let vault_setup_token_request = await pay_operation({"method": "setup_token", "payment_source": payment_source});
-        let vault_setup_token_response = await vault_setup_token_request.json();
-        console.log(vault_setup_token_response);
-        return vault_setup_token_response.token;
-      } catch (error) {
-        console.error(error);
-        resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
-      }
-    }
-
-      if (payment_link.type === "one-time") {
-      payment_options_object.createOrder = create_order_func;
-    } else
-    if (payment_link.type === "sub") {
-      delete payment_options_object.createOrder;
-      payment_options_object.createVaultSetupToken = create_vault_setup_token_func;
-      payment_options_object.onApprove = async ({ vaultSetupToken }) => {
-        vault_setup_token_string = vaultSetupToken;
-        try {
-          let setup_vault_request = await pay_operation({"method": "setup_vault", "setup_vault_token": vault_setup_token_string});
-          let setup_vault_response = await setup_vault_request.json();
-          console.log(setup_vault_response);
-        } catch (error) {
-          console.error(error);
-          resultMessage( `Sorry, your transaction could not be processed...<br><br>${error}`, );
-        }
-      }
-    }  */
-
   load_script_tag("https://www.paypal.com/sdk/js", paypal_script_object, paypal_script_attributes).then(() => {
     //Apple Pay
     if (typeof ApplePaySession !== 'undefined' && ApplePaySession.supportsVersion(4) && ApplePaySession.canMakePayments()) {
@@ -265,7 +224,18 @@ const init = async (token) => {
     const card_fields = paypal.CardFields(payment_options_object);
 
     if (card_fields.isEligible()) {
-        const number_field = card_fields.NumberField();
+        const number_field = card_fields.NumberField({
+            inputEvents: {
+                onBlur: function(data) {
+                    document.getElementById("card_submit_button_div").style.display = "none";
+                    document.getElementById("apms").style.display = "block";
+                },
+                onFocus: function(data) {
+                    document.getElementById("card_submit_button_div").style.display = "block";
+                    document.getElementById("apms").style.display = "none";
+                }
+            }
+        });
         renders_array.push(number_field.render("#card-number-field-container"));
         const cvv_field = card_fields.CVVField();
         renders_array.push(cvv_field.render("#card-cvv-field-container"));
