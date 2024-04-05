@@ -29,6 +29,7 @@ const usd_input = (function() {
         update_shadow_object();
         // Set the caret position to the end of the input
         input_element.setSelectionRange(input_element.value.length, input_element.value.length);
+        window.payment_link.amount = input_element.value;
         e.preventDefault();
     }
     
