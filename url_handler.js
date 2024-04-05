@@ -44,20 +44,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function build_payment_link_url() {
     const base_url = window.location.origin;
-    const payment_link_object = parse_url();
     let url_parts = [];
 
-    if (payment_link_object.user) {
-        url_parts.push("@" + payment_link_object.user);
+    url_parts.push("@" + payment_link.user);
+    url_parts.push(payment_link.amount);
+    if (payment_link.type !== "one-time") {
+        url_parts.push(payment_link.type);
     }
-    if (payment_link_object.amount && payment_link_object.amount !== "1") {
-        url_parts.push(payment_link_object.amount);
-    }
-    if (payment_link_object.type !== "one-time") {
-        url_parts.push(payment_link_object.type);
-    }
-    if (payment_link_object.label !== "logo") {
-        url_parts.push(payment_link_object.label);
+    if (payment_link.label !== "logo") {
+        url_parts.push(payment_link.label);
     }
 
     return base_url + "/" + url_parts.join("/");
