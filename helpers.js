@@ -83,6 +83,10 @@ function send_notification({type = "default", message = "", template = "", optio
 document.onclick = function(event) {
     if (event.target.id === "modal-overlay") {
         event.target.style.display = "none";
+    } else
+    if (event.target.id === "donate") {
+        build_payment_link_url.label = "donate";
+        window.location.href = build_payment_link_url();
     }
     if (event.target.classList.contains("modal")) {
         event.target.style.display = "none";
