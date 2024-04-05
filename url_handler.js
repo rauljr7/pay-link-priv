@@ -9,7 +9,7 @@ function parse_url() {
         user: ""
     };
     url_sections.forEach(url_partial => {
-        if (url_partial === "one-time" || url_partial === "recurring") {
+        if (url_partial === "one-time" || url_partial === "sub") {
             payment_link_object.type = url_partial;
         } else if (["logo", "checkout", "pay", "buy", "donate", "sub"].includes(url_partial)) {
             payment_link_object.label = url_partial;

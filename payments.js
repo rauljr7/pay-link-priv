@@ -47,7 +47,7 @@ const init = async (token) => {
       "components": "googlepay,buttons,card-fields,applepay"
   };
   let paypal_script_attributes = {};
-  if (payment_link.type === "recurring") {
+  if (payment_link.type === "sub") {
       paypal_script_attributes = {
           "data-user-id-token": paypal_client_id_response.id_token
       };
@@ -215,7 +215,7 @@ const init = async (token) => {
       if (payment_link.type === "one-time") {
       payment_options_object.createOrder = create_order_func;
     } else
-    if (payment_link.type === "recurring") {
+    if (payment_link.type === "sub") {
       delete payment_options_object.createOrder;
       payment_options_object.createVaultSetupToken = create_vault_setup_token_func;
       payment_options_object.onApprove = async ({ vaultSetupToken }) => {
@@ -291,7 +291,7 @@ const init = async (token) => {
         });
     }
     Promise.all(renders_array).then(async () => {
-        if (paypal.Googlepay && payment_link.type !== "recurring") {
+        if (paypal.Googlepay && payment_link.type !== "sub") {
             load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
                 onGooglePayLoaded().catch(console.error);
             }).catch(error => {
@@ -547,8 +547,8 @@ const init = async (token) => {
                     type: "final",
                 },
             };
-            if (payment_link.type === "recurring") {
-                console.log("ap recurring!");
+            if (payment_link.type === "sub") {
+                console.log("ap sub!");
                 let recurringStartDate = getCurrentDateTimeISO();
                 paymentRequest.lineItems = [
                     {
