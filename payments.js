@@ -179,10 +179,10 @@ const init = async (token) => {
   if (payment_link.label === "buy") {
     label = "buynow";
   } else
-  if (payment_link.label === "donate") {
+  if (payment_link.label === "donate" || payment_link.label === "donation") {
     label = "donate";
   } else
-  if (payment_link.label === "sub") {
+  if (payment_link.type === "sub") {
     label = "subscribe";
   }
   payment_options_object = {
@@ -535,11 +535,13 @@ const init = async (token) => {
         "donation": "donate",
         "checkout": "check-out",
         "buy": "buy",
-        "sub": "subscribe",
         "pay": "plain"
       };
       
       let apple_pay_button_label = apple_pay_label_map[payment_link.label] || "plain";
+      if (payment_link.type === "sub") {
+        apple_pay_button_label = "subscribe";
+      }
       document.getElementById("pay-apple-pay-div").innerHTML = `<apple-pay-button id="pay-apple-pay" buttonstyle="black" type="${apple_pay_button_label}" locale="en"></apple-pay-button>`;
       function getCurrentDateTimeISO() {
         return new Date().toISOString();
