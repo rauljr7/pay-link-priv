@@ -482,7 +482,8 @@ const init = async (token) => {
       return new Promise(async function(resolve, reject) {
           try {
               const order_request = await pay_operation({
-                  "method": "order"
+                  "method": "order",
+                  "payment_source": "google_pay"
               });
               let {
                   id
