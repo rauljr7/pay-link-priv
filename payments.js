@@ -167,6 +167,9 @@ const init = async (token) => {
   }
   let payment_options_object;
   let label;
+  if (payment_link.type === "sub") {
+    label = "subscribe";
+  } else
   if (payment_link.label === "logo") {
     label = "paypal";
   } else
@@ -181,9 +184,6 @@ const init = async (token) => {
   } else
   if (payment_link.label === "donate" || payment_link.label === "donation") {
     label = "donate";
-  } else
-  if (payment_link.type === "sub") {
-    label = "subscribe";
   }
   payment_options_object = {
         "style": {
@@ -272,7 +272,7 @@ const init = async (token) => {
             'color': 'red',
         },
     };
-/*     payment_options_object.style = card_style;
+    payment_options_object.style = card_style;
     const card_fields = paypal.CardFields(payment_options_object);
 
     if (card_fields.isEligible()) {
@@ -291,7 +291,7 @@ const init = async (token) => {
                 });
             }
         });
-    } */
+    }
     Promise.all(renders_array).then(async () => {
         if (paypal.Googlepay && payment_link.type !== "sub") {
             load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
