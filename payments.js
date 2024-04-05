@@ -255,6 +255,17 @@ const init = async (token) => {
         paymentMethods.classList.remove("hide");
         setTimeout(() => paymentMethods.classList.add("fade-in"), 100);
     });
+
+    document.getElementById('card_submit_button').addEventListener('click', function() {
+      card_fields.submit().then((res) => {
+          console.log(res);
+      });
+    });
+  
+    document.getElementById('use_apms').addEventListener('click', function() {
+      document.getElementById("card_submit_button_div").style.display = "none";
+      document.getElementById("apms").style.display = "block";
+    });
 }).catch(error => console.error("Script loading failed", error));
   /**
    * An initialized google.payments.api.PaymentsClient object or null if not yet set
@@ -600,17 +611,6 @@ const init = async (token) => {
       const container = document.querySelector("#result-message");
       container.innerHTML = message;
   }
-
-  document.getElementById('card_submit_button').addEventListener('click', function() {
-    card_fields.submit().then((res) => {
-        console.log(res);
-    });
-  });
-
-  document.getElementById('use_apms').addEventListener('click', function() {
-    document.getElementById("card_submit_button_div").style.display = "none";
-    document.getElementById("apms").style.display = "block";
-  });
 
   document.getElementById('moon').addEventListener('click', function() {
       const doc_elem = document.documentElement;
