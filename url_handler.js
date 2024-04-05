@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (payment_link.label === "donate") {
         document.getElementById("donate").setAttribute("class", "fas fa-dollar fa-lg");
-        document.getElementById("donate").setAttribute("alt", "One-time Payment");
+        document.getElementById("donate").setAttribute("alt", "Pay");
         document.getElementById("donate").setAttribute("id", "pay");
     }
 });

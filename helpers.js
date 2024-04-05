@@ -91,6 +91,14 @@ document.onclick = function(event) {
     if (event.target.id === "sub") {
         payment_link.label = "sub";
         window.location.href = build_payment_link_url();
+    } else
+    if (event.target.id === "one-time") {
+        payment_link.type = "sub";
+        window.location.href = build_payment_link_url();
+    } else
+    if (event.target.id === "pay") {
+        payment_link.label = "sub";
+        window.location.href = build_payment_link_url();
     }
     if (event.target.classList.contains("modal")) {
         event.target.style.display = "none";
