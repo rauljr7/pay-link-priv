@@ -249,7 +249,9 @@ const init = async (token) => {
 
     const renders_array = [];
     payment_options_object.fundingSource = paypal.FUNDING.PAYPAL;
+    console.log(payment_options_object);
     let paypal_button = window.paypal.Buttons(payment_options_object);
+    console.log(paypal_button);
     if (paypal_button.isEligible()) {
         renders_array.push(paypal_button.render("#pay-paypal"));
     }
