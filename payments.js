@@ -529,8 +529,18 @@ const init = async (token) => {
       if (!isEligible) {
           throw new Error("applepay is not eligible");
           document.getElementById("pay-apple-pay-div").remove();
-      }
-      document.getElementById("pay-apple-pay-div").innerHTML = '<apple-pay-button id="pay-apple-pay" buttonstyle="black" type="plain" locale="en">';
+      }const apple_pay_label_map = {
+        "logo": "plain",
+        "donate": "donate",
+        "donation": "donate",
+        "checkout": "check-out",
+        "buy": "buy",
+        "sub": "subscribe",
+        "pay": "plain"
+      };
+      
+      let apple_pay_button_label = apple_pay_label_map[payment_link.label] || "plain";
+      document.getElementById("pay-apple-pay-div").innerHTML = `<apple-pay-button id="pay-apple-pay" buttonstyle="black" type="${apple_pay_button_label}" locale="en"></apple-pay-button>`;
       function getCurrentDateTimeISO() {
         return new Date().toISOString();
       }
