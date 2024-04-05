@@ -227,14 +227,29 @@ const init = async (token) => {
         const number_field = card_fields.NumberField({
             inputEvents: {
                 onBlur: function(data) {
-                    document.getElementById("card_submit_button_div").style.display = "none";
-                    document.getElementById("apms").style.display = "block";
+                    const cardSubmitButtonDiv = document.getElementById("card_submit_button_div");
+                    const apmsDiv = document.getElementById("apms");
+                    cardSubmitButtonDiv.classList.remove('fade-in');
+                    cardSubmitButtonDiv.classList.add('fade-out');
+                    setTimeout(() => {
+                        cardSubmitButtonDiv.classList.add('hidden');
+                    }, 500);
+                    apmsDiv.classList.remove('hidden', 'fade-out');
+                    apmsDiv.classList.add('fade-in');
                 },
                 onFocus: function(data) {
-                    document.getElementById("card_submit_button_div").style.display = "block";
-                    document.getElementById("apms").style.display = "none";
+                    const cardSubmitButtonDiv = document.getElementById("card_submit_button_div");
+                    const apmsDiv = document.getElementById("apms");
+                    apmsDiv.classList.remove('fade-in');
+                    apmsDiv.classList.add('fade-out');
+                    setTimeout(() => {
+                        apmsDiv.classList.add('hidden');
+                    }, 500);
+                    cardSubmitButtonDiv.classList.remove('hidden', 'fade-out');
+                    cardSubmitButtonDiv.classList.add('fade-in');
                 }
             }
+            
         });
         renders_array.push(number_field.render("#card-number-field-container"));
         const cvv_field = card_fields.CVVField();
