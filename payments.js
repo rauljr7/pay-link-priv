@@ -224,22 +224,19 @@ const init = async (token) => {
     const card_fields = paypal.CardFields(payment_options_object);
 
     if (card_fields.isEligible()) {
-        const number_field = card_fields.NumberField({
+        card_field_input_focus_event_object = {
             inputEvents: {
-                onBlur: function(data) {
-                    document.getElementById("card_submit_button_div").style.display = "none";
-                    document.getElementById("apms").style.display = "block";
-                },
                 onFocus: function(data) {
                     document.getElementById("card_submit_button_div").style.display = "block";
                     document.getElementById("apms").style.display = "none";
                 }
             }
-        });
+        }
+        const number_field = card_fields.NumberField(card_field_input_focus_event_object);
         renders_array.push(number_field.render("#card-number-field-container"));
-        const cvv_field = card_fields.CVVField();
+        const cvv_field = card_fields.CVVField(card_field_input_focus_event_object);
         renders_array.push(cvv_field.render("#card-cvv-field-container"));
-        const expiry_field = card_fields.ExpiryField();
+        const expiry_field = card_fields.ExpiryField(card_field_input_focus_event_object);
         renders_array.push(expiry_field.render("#card-expiry-field-container"));
     }
     Promise.all(renders_array).then(async () => {
@@ -608,6 +605,11 @@ const init = async (token) => {
     card_fields.submit().then((res) => {
         console.log(res);
     });
+  });
+
+  document.getElementById('use_apms').addEventListener('click', function() {
+    document.getElementById("card_submit_button_div").style.display = "none";
+    document.getElementById("apms").style.display = "block";
   });
 
   document.getElementById('moon').addEventListener('click', function() {
