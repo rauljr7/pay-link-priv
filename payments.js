@@ -249,8 +249,6 @@ const init = async (token) => {
 
     const renders_array = [];
     payment_options_object.fundingSource = paypal.FUNDING.PAYPAL;
-    console.log("pp");
-    console.log(payment_options_object.fundingSource);
     console.log(payment_options_object);
     let paypal_button = window.paypal.Buttons(payment_options_object);
     console.log(paypal_button);
@@ -274,7 +272,7 @@ const init = async (token) => {
             'color': 'red',
         },
     };
-    payment_options_object.style = card_style;
+/*     payment_options_object.style = card_style;
     const card_fields = paypal.CardFields(payment_options_object);
 
     if (card_fields.isEligible()) {
@@ -293,7 +291,7 @@ const init = async (token) => {
                 });
             }
         });
-    }
+    } */
     Promise.all(renders_array).then(async () => {
         if (paypal.Googlepay && payment_link.type !== "sub") {
             load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
