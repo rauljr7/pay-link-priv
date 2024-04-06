@@ -107,3 +107,15 @@ document.onclick = function(event) {
         element.remove();
     })
 };
+document.addEventListener("DOMContentLoaded", function () {
+    const recurring_label_element = document.querySelector("#recurring_label_div label.ms-label");
+    if (payment_link.type === "sub") {
+        if (recurring_label_element.classList.contains("hide")) {
+            recurring_label_element.classList.remove("hide");
+        }
+    } else {
+        if (!recurring_label_element.classList.contains("hide")) {
+            recurring_label_element.classList.add("hide");
+        }
+    }    
+});
