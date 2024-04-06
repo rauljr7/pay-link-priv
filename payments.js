@@ -263,7 +263,7 @@ const init = async (token) => {
         } else {
             document.getElementById("pay-google-pay").remove();
         }
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        //await new Promise(resolve => setTimeout(resolve, 2000));
         document.getElementById("loading").classList.add("hide");
         const paymentMethods = document.getElementById("payment-methods");
         paymentMethods.classList.remove("hide");
