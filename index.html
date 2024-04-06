@@ -26,7 +26,7 @@
     <div class="row">
       <div class="col-sm"></div>
       <div class="col-lg">
-        <div class="ms-user ms-fill">
+        <div class="ms-user ms-fill pt-5">
             <div class="ms-avatar ms-large">
                 <img
                     class="ms-avatar-img"
@@ -46,8 +46,8 @@
             </div>
             <div class="ms-user-content">
                 <div class="ms-form-group">
+                  <div id="recurring_label_div" style="display: flex; justify-content: center;padding-bottom:5px"><label class="ms-label ms-action2 ms-text-center">Recurring Payment</label></div>
                 <label class="ms-text-center" for="amount">Amount (USD)</label>
-                <div id="recurring_label_div" style="display: flex; justify-content: center;padding-bottom:5px"><label class="ms-label ms-action2 ms-text-center">Recurring Payment</label></div>
                   <input inputmode="decimal" style="font-size:50px;border-radius:5px" class="ms-large ms-text-center" type="text" id="amount" step="0.01" min="0.01" placeholder="1.00" value="">
                 </div>
                 <div class="spinner-container" id="loading">
@@ -82,11 +82,26 @@
                 <p id="result-message"></p>
             </div>
             <div class="ms-user-pined">
-              <a ><i style="cursor:pointer;font-size:1rem" id="moon" alt="Toggle Dark Mode" class="fas fa-moon fa-lg"></i></a>
-              <a ><i style="cursor:pointer;font-size:1rem" id="gen-qr" alt="Generate QR Code" class="fas fa-qrcode fa-lg"></i></a>
-              <a ><i style="cursor:pointer;font-size:1rem" id="donate" alt="Donate" class="fas fa-gift fa-lg"></i></a>
-              <a ><i style="cursor:pointer;font-size:1rem" id="sub" alt="Subscription Payment" class="fas fa-refresh fa-lg"></i></a>
-              <a ><i style="cursor:pointer;font-size:1rem" id="share" alt="Share" class="fas fa-copy fa-lg"></i></a>
+              <a id="moon" style="cursor:pointer;font-size:.75rem;">
+                <i alt="Toggle Dark Mode" class="fas fa-moon fa-lg"></i>
+                <span style="text-decoration: underline;">Mode</span>
+              </a>
+              <a id="gen-qr" style="cursor:pointer;font-size:.75rem;">
+                <i alt="Generate QR Code" class="fas fa-qrcode fa-lg"></i>&nbsp;
+                <span style="text-decoration: underline;">QR</span>
+              </a>
+              <a id="donate" style="cursor:pointer;font-size:.75rem;">
+                <i alt="Donate" class="fas fa-gift fa-lg"></i>&nbsp;
+                <span style="text-decoration: underline;">Donate</span>
+              </a>
+              <a id="sub" style="cursor:pointer;font-size:.75rem;">
+                <i alt="Subscription Payment" class="fas fa-refresh fa-lg"></i>&nbsp;
+                <span style="text-decoration: underline;">Subscribe</span>
+              </a>
+              <a id="share" style="cursor:pointer;font-size:.75rem;">
+                <i alt="Share" class="fas fa-copy fa-lg"></i>&nbsp;
+                <span style="text-decoration: underline;">Share</span>
+              </a>
             </div>
         </div>
       </div>
