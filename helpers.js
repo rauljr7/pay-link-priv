@@ -81,11 +81,11 @@ function send_notification({type = "default", message = "", template = "", optio
 }
 
 document.onclick = function(event) {
+    console.log(event.target);
     if (event.target.id === "modal-overlay") {
         event.target.style.display = "none";
     } else
     if (event.target.id === "donate") {
-        console.log("clicked donate");
         payment_link.label = "donate";
         window.location.href = build_payment_link_url();
     } else
