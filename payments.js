@@ -2,23 +2,28 @@ window.turnstile_loaded_once = false;
 
 // Define the onload callback function
 window.turnstile_loaded = function() {
+    console.log("parent func");
   turnstile.render('#turstile_id', {
       sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
       callback: init
   });
 };
 
-function turnstile_load() {
+function cloudflare_turnstile_load() {
   const script = document.createElement('script');
   script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=turnstile_loaded";
   script.defer = true;
   document.head.appendChild(script);
 }
 
-// Call the function to load the script
-//turnstile_load();
+// If using clourflare turnstile service,
+// uncomment this function below and
+// comment out the init() function at
+// the very bottom of this page
+// cloudflare_turnstile_load();
 
 const init = async (token) => {
+    console.log("child func");
   if (!token) {
       token = "";
   }
