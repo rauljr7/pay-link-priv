@@ -97,7 +97,10 @@ const init = async (token) => {
               script_element.setAttribute(key, value);
           });
           script_element.onload = () => resolve(script_element);
-          script_element.onerror = () => reject(new Error(`Script load error for ${combined_url}`));
+          script_element.onerror = () => {
+            send_notification({"template": "generic_error"});
+            reject(new Error(`Script load error for ${combined_url}`));
+        }
           document.head.appendChild(script_element);
       });
   }
@@ -113,16 +116,17 @@ const init = async (token) => {
               let paypal_error_detail = paypal_order_response?.details?.[0];
               let paypal_error_message;
               if (paypal_error_detail) {
-                  paypal_error_message = `${error_details.issue} ${error_details.description} (${paypal_order_response.debug_id})`;
+                paypal_error_message = `${error_details.issue} ${error_details.description} (${paypal_order_response.debug_id})`;
               } else {
-                  paypal_error_detail = JSON.stringify(paypal_order_response);
+                paypal_error_detail = JSON.stringify(paypal_order_response);
               }
               throw new Error(paypal_error_message);
           }
           return paypal_order_response.id;
       } catch (error) {
-          console.error(error);
-          resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
+        send_notification({"template": "payment_error"});
+        console.error(error);
+        resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
       }
   }
 
@@ -148,8 +152,9 @@ const init = async (token) => {
               resultMessage(`Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`, );
           }
       } catch (error) {
-          console.error(error);
-          resultMessage(`Sorry, your transaction could not be processed...<br><br>${error}`, );
+        send_notification({"template": "payment_error"});
+        console.error(error);
+        resultMessage(`Sorry, your transaction could not be processed...<br><br>${error}`, );
       }
   }
   let payment_options_object;
@@ -182,7 +187,8 @@ const init = async (token) => {
           console.log(`Order Canceled - ID: ${data.orderID}`);
       },
       onError(err) {
-          console.error(err);
+        send_notification({"template": "payment_error"});
+        console.error(err);
       }
   };
 
@@ -191,9 +197,11 @@ const init = async (token) => {
     if (typeof ApplePaySession !== 'undefined' && ApplePaySession.supportsVersion(4) && ApplePaySession.canMakePayments()) {
         load_script_tag('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js').then(() => {
             setup_apple_pay().catch(error => {
+                send_notification({"message": "There was an error with the Apple Pay", "type": "alert"});
                 console.error(error);
             });
         }).catch(error => {
+            send_notification({"message": "There was an error with the Apple Pay", "type": "alert"});
             console.error(error);
             document.getElementById("pay-apple-pay-div").style.display = "none";
         });
@@ -249,6 +257,7 @@ const init = async (token) => {
             load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
                 onGooglePayLoaded().catch(console.error);
             }).catch(error => {
+                send_notification({"message": "There was an error with the Google Pay", "type": "alert"});
                 console.error("Error loading Google Pay SDK:", error);
             });
         } else {
@@ -271,7 +280,9 @@ const init = async (token) => {
       document.getElementById("card_submit_button_div").style.display = "none";
       document.getElementById("apms").style.display = "block";
     });
-}).catch(error => console.error("Script loading failed", error));
+}).catch((error) => {
+    send_notification({"template": "generic_error"});
+    console.error("Script loading failed", error);});
   /**
    * An initialized google.payments.api.PaymentsClient object or null if not yet set
    * An initialized paypal.Googlepay().config() response object or null if not yet set
@@ -287,7 +298,6 @@ const init = async (token) => {
   async function get_google_pay_config() {
       if (google_pay_config === null) {
           google_pay_config = await paypal.Googlepay().config();
-
       }
       return google_pay_config;
   }
