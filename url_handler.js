@@ -61,6 +61,7 @@ function build_payment_link_url() {
     url_parts.push("@" + payment_link.user);
     url_parts.push(payment_link.amount);
     if (payment_link.type !== "one-time") {
+        payment_link.label = "";
         url_parts.push(payment_link.type);
     }
     if (payment_link.label !== "logo") {
