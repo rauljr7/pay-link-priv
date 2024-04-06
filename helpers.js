@@ -85,20 +85,16 @@ document.onclick = function(event) {
     if (event.target.id === "modal-overlay") {
         event.target.style.display = "none";
     } else
-    if (event.target.id === "donate") {
+    if (event.target.classList.contains("settings-donate")) {
         payment_link.label = "donate";
         window.location.href = build_payment_link_url();
     } else
-    if (event.target.id === "sub") {
+    if (event.target.classList.contains("settings-subscribe")) {
         payment_link.label = "sub";
         window.location.href = build_payment_link_url();
     } else
-    if (event.target.id === "one-time") {
-        payment_link.type = "sub";
-        window.location.href = build_payment_link_url();
-    } else
-    if (event.target.id === "pay") {
-        payment_link.label = "sub";
+    if (event.target.classList.contains("settings-pay")) {
+        payment_link.type = "pay";
         window.location.href = build_payment_link_url();
     }
     if (event.target.classList.contains("modal")) {
