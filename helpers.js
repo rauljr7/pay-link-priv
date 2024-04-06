@@ -90,7 +90,7 @@ document.onclick = function(event) {
         window.location.href = build_payment_link_url();
     } else
     if (event.target.classList.contains("settings-subscribe")) {
-        payment_link.type = "sub";
+        payment_link.label = "sub";
         window.location.href = build_payment_link_url();
     } else
     if (event.target.classList.contains("settings-pay")) {
