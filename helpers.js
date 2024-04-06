@@ -90,11 +90,11 @@ document.onclick = function(event) {
         window.location.href = build_payment_link_url();
     } else
     if (event.target.classList.contains("settings-subscribe")) {
-        payment_link.label = "sub";
+        payment_link.type = "sub";
         window.location.href = build_payment_link_url();
     } else
     if (event.target.classList.contains("settings-pay")) {
-        payment_link.type = "pay";
+        payment_link.label = "pay";
         window.location.href = build_payment_link_url();
     }
     if (event.target.classList.contains("modal")) {
