@@ -67,6 +67,7 @@ function build_payment_link_url() {
     if (payment_link.label !== "logo") {
         url_parts.push(payment_link.label);
     }
-
-    return base_url + "/" + url_parts.join("/");
+    let full_url = base_url + "/" + url_parts.join("/");
+    console.log(full_url);
+    return full_url;
 }
