@@ -42,11 +42,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (payment_link.type === "sub") {
         document.querySelector("#sub i").setAttribute("class", "fas fa-money-bill-1 fa-lg settings-pay");
         document.querySelector("#sub i").setAttribute("alt", "One-time Payment");
+        document.querySelector("#sub span").innerHTML = "Pay";
     }
     if (payment_link.label === "donate") {
         document.querySelector("#donate i").setAttribute("class", "fas fa-dollar fa-lg settings-pay");
         document.querySelector("#donate i").setAttribute("alt", "Pay");
-        document.querySelector("#donate").setAttribute("id", "pay");
+        document.querySelector("#donate span").innerHTML = "Pay";
     }
 });
 })();
