@@ -40,14 +40,14 @@ window.payment_link = parse_url();
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("amount").value = reverse_usd_amount_sanitize(window.payment_link.amount);
     if (payment_link.type === "sub") {
-        document.getElementById("sub").setAttribute("class", "fas fa-money-bill-1 fa-lg");
-        document.getElementById("sub").setAttribute("alt", "One-time Payment");
-        document.getElementById("sub").setAttribute("id", "one-time");
+        document.querySelector("#sub i").setAttribute("class", "fas fa-money-bill-1 fa-lg");
+        document.querySelector("#sub i").setAttribute("alt", "One-time Payment");
+        document.querySelector("#sub").setAttribute("id", "one-time");
     }
     if (payment_link.label === "donate") {
-        document.getElementById("donate").setAttribute("class", "fas fa-dollar fa-lg");
-        document.getElementById("donate").setAttribute("alt", "Pay");
-        document.getElementById("donate").setAttribute("id", "pay");
+        document.querySelector("#donate i").setAttribute("class", "fas fa-dollar fa-lg");
+        document.querySelector("#donate i").setAttribute("alt", "Pay");
+        document.querySelector("#donate").setAttribute("id", "pay");
     }
 });
 })();
