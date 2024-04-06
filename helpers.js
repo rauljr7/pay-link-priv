@@ -86,6 +86,7 @@ document.onclick = function(event) {
         event.target.style.display = "none";
     } else
     if (event.target.classList.contains("settings-donate")) {
+        payment_link.type = "one-time";
         payment_link.label = "donate";
         window.location.href = build_payment_link_url();
     } else
