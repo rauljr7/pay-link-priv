@@ -18,7 +18,7 @@
       <div id="modal-overlay" class="modal"> 
       </div>
         <div id="qr-modal" class="modal">
-        <div style="display: flex;justify-content: center;" class="modal-content">
+        <div id="qr-modal-content" class="modal-content">
           <h4 style="color:black">Present Code to Buyer:</h4>
           <div id="qr"></div>
         </div>
@@ -28,16 +28,13 @@
       <div class="col-lg">
         <div class="ms-user ms-fill pt-5">
             <div class="ms-avatar ms-large">
-                <img
-                    class="ms-avatar-img"
-                    src="https://assets.rauluriartejr.com/public/images/ClearAvatar.png"
-                />
+                <img class="ms-avatar-img" src="https://assets.rauluriartejr.com/public/images/ClearAvatar.png" />
             </div>
             <div class="ms-user-info">
                 <p>
                     <b>Raúl Uriarte, Jr.</b><br />
                     <i>@rauljr7</i><br />
-                    <div style="margin-top:7px">
+                    <div id="social-icons-div">
                       <a href="https://github.com/rauljr7" class="ms-btn ms-small ms-secondary" ><i class="fab fa-github fa-lg"></i></a>
                       <a href="https://twitter.com/dev_rauljr" class="ms-btn ms-small ms-secondary"><i class="fab fa-twitter fa-lg"></i></a>
                       <a href="https://instagram.com/dev_rauljr" class="ms-btn ms-small ms-secondary" ><i class="fab fa-instagram fa-lg"></i></a>
@@ -46,61 +43,61 @@
             </div>
             <div class="ms-user-content">
                 <div class="ms-form-group">
-                  <div id="recurring_label_div" style="display: flex; justify-content: center;padding-bottom:5px"><label class="ms-label ms-action2 ms-text-center">Recurring Payment</label></div>
+                  <div id="recurring_label_div"><label class="ms-label ms-action2 ms-text-center">Recurring Payment</label></div>
                 <label class="ms-text-center" for="amount">Amount (USD)</label>
-                  <input inputmode="decimal" style="font-size:50px;border-radius:5px" class="ms-large ms-text-center" type="text" id="amount" step="0.01" min="0.01" placeholder="1.00" value="">
+                  <input inputmode="decimal" class="ms-large ms-text-center" type="text" id="amount" step="0.01" min="0.01" placeholder="1.00" value="">
                 </div>
                 <div class="spinner-container" id="loading">
                     <div class="spinner"></div>
                 </div>
                 <div id="payment-methods" class="hide">
-                  <div style="margin-bottom:6px;padding-left:6px;padding-right:6px;" class="ms-form-group">
-                    <input style="border-width:1px;border-color:#909697;border-radius:5px" type="email" class="ms-medium" placeholder="youremail@email.com">
+                  <div id="email-div" class="ms-form-group">
+                    <input id="email" type="email" class="ms-medium" placeholder="youremail@email.com">
                 </div>
                   <div id="pay-card">
                     <div class="" id="card-number-field-container"></div>
-                    <div style="--bs-gutter-x: 0rem" class="row">
-                    <div class="col" id="card-expiry-field-container"></div>
-                    <div class="col" id="card-cvv-field-container"></div>
+                      <div style="--bs-gutter-x: 0rem" class="row">
+                      <div class="col" id="card-expiry-field-container"></div>
+                      <div class="col" id="card-cvv-field-container"></div>
+                    </div>
                   </div>
-                  </div>
-                  <div style="display: none; padding-right: 7px; padding-left: 5px;" id="card_submit_button_div">
+                  <div id="card_submit_button_div">
                     <div>
-                      <button style="background-color: #5ea367;padding-right:6px;padding-left:6px;border-radius:5px;margin-bottom:8px" id="card_submit_button" class="ms-btn ms-fullwidth">Submit</button>
+                      <button id="card_submit_button" class="ms-btn ms-fullwidth">Submit</button>
                     </div>
                     <div>
-                      <button style="color: rgb(248, 248, 248);background-color: #0f0f0f;padding-right:6px;padding-left:6px;border-radius:5px" id="use_apms" class="ms-btn ms-fullwidth">Show Other Wallets</button>
+                      <button id="use_apms" class="ms-btn ms-fullwidth">Show Other Wallets</button>
                     </div>
                   </div>
                   <div id="apms">
-                    <div style="padding-left:6px;padding-right:6px;padding-bottom:8px" id="pay-paypal"></div>
-                    <div style="padding-left:6px;padding-right:6px;padding-bottom:8px" id="pay-venmo"></div>
-                    <div style="padding-left:6px;padding-right:6px;padding-bottom:9px" id="pay-apple-pay-div"></div>
-                    <div style="padding-left:6px;padding-right:6px;padding-bottom:8px;margin-left:1px;margin-right:1px;height:43px" id="pay-google-pay"></div>
+                    <div id="pay-paypal"></div>
+                    <div id="pay-venmo"></div>
+                    <div id="pay-apple-pay-div"></div>
+                    <div id="pay-google-pay"></div>
                   </div>
                 </div>
                 <p id="result-message"></p>
             </div>
             <div class="ms-user-pined">
-              <a id="moon" style="cursor:pointer;font-size:.75rem;">
+              <a id="moon" class="pinned-icons-parent">
                 <i alt="Toggle Dark Mode" class="settings-mode fas fa-moon fa-lg"></i>
-                <span class="settings-mode " style="text-decoration: underline;">Mode</span>
+                <span class="settings-mode" class="pinned-icons-text">Mode</span>
               </a>&nbsp;
-              <a id="gen-qr" style="cursor:pointer;font-size:.75rem;">
+              <a id="gen-qr" class="pinned-icons-parent">
                 <i alt="Generate QR Code" class="settings-qr fas fa-qrcode fa-lg"></i>&nbsp;
-                <span class="settings-qr" style="text-decoration: underline;">QR</span>
+                <span class="settings-qr" class="pinned-icons-text">QR</span>
               </a>&nbsp;
-              <a id="donate" style="cursor:pointer;font-size:.75rem;">
+              <a id="donate" class="pinned-icons-parent">
                 <i alt="Donate" class="settings-donate fas fa-gift fa-lg"></i>&nbsp;
-                <span class="settings-donate" style="text-decoration: underline;">Donate</span>
+                <span class="settings-donate" class="pinned-icons-text">Donate</span>
               </a>&nbsp;
-              <a id="sub" style="cursor:pointer;font-size:.75rem;">
+              <a id="sub" class="pinned-icons-parent">
                 <i alt="Subscription Payment" class="settings-subscribe fas fa-refresh fa-lg"></i>&nbsp;
-                <span class="settings-subscribe" style="text-decoration: underline;">Subscribe</span>
+                <span class="settings-subscribe" class="pinned-icons-text">Subscribe</span>
               </a>&nbsp;
-              <a id="share" style="cursor:pointer;font-size:.75rem;">
+              <a id="share" class="pinned-icons-parent">
                 <i alt="Share" class="settings-share fas fa-copy fa-lg"></i>&nbsp;
-                <span class="settings-share" style="text-decoration: underline;">Share</span>
+                <span class="settings-share" class="pinned-icons-text">Share</span>
               </a>
             </div>
         </div>

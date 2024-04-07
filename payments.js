@@ -275,7 +275,7 @@ const init = async (token) => {
           console.log(res);
       })
       .catch((error) => {
-        send_notification({"template": "payment_error"});
+        send_notification({"message": "Please check your card information and try again.", "type": "warn"});
         console.log(error.toString());
       });
     });

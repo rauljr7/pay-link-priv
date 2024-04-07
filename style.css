@@ -3,12 +3,87 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+#email-div {
+  margin-bottom:6px;
+  padding-left:6px;
+  padding-right:6px;
+}
+#card_submit_button_div {
+  display: none;
+  padding-right: 7px;
+  padding-left: 5px;
+}
+#card_submit_button {
+  background-color: #5ea367;
+  padding-right:6px;
+  padding-left:6px;
+  border-radius:5px;
+  margin-bottom:8px;
+}
+#use_apms {
+  color: rgb(248, 248, 248);
+  background-color: #0f0f0f;
+  padding-right:6px;
+  padding-left:6px;
+  border-radius:5px;
+}
+#pay-paypal {
+  padding-left:6px;
+  padding-right:6px;
+  padding-bottom:8px;
+}
+#pay-venmo {
+  padding-left:6px;
+  padding-right:6px;
+  padding-bottom:8px;
+}
+#pay-apple-pay-div {
+  padding-left:6px;
+  padding-right:6px;
+  padding-bottom:9px;
+}
+#pay-google-pay {
+  padding-left:6px;
+  padding-right:6px;
+  padding-bottom:8px;
+  margin-left:1px;
+  margin-right:1px;
+  height:43px;
+}
+.pinned-icons-parent {
+  cursor:pointer;
+  font-size:.75rem;
+}
+.pinned-icons-text {
+  text-decoration: underline;
+}
+#email {
+  border-width:1px;
+  border-color:#909697;
+  border-radius:5px;
+}
+#amount {
+  font-size:50px;
+  border-radius:5px;
+}
 apple-pay-button {
   --apple-pay-button-width: 100%;
   --apple-pay-button-height: 45px;
   --apple-pay-button-border-radius: 5px;
   --apple-pay-button-padding: 0px 0px;
   --apple-pay-button-box-sizing: border-box;
+}
+#recurring_label_div {
+  display: flex;
+  justify-content: center;
+  padding-bottom:5px;
+}
+#social-icons-div {
+  margin-top:7px;
+}
+#qr-modal-content {
+  display: flex;
+  justify-content: center;
 }
 #pay-google-pay .gpay-button-fill .gpay-button {
   margin: 0 !important;
