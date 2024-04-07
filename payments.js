@@ -276,7 +276,7 @@ const init = async (token) => {
       })
       .catch((error) => {
         send_notification({"template": "payment_error"});
-        console.log(error);
+        console.log(error.toString());
       });
     });
   
