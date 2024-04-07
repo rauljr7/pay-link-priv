@@ -253,6 +253,7 @@ const init = async (token) => {
         renders_array.push(expiry_field.render("#card-expiry-field-container"));
     }
     Promise.all(renders_array).then(async () => {
+        document.getElementById("loading").classList.add("hide");
         if (paypal.Googlepay && payment_link.type !== "sub") {
             load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
                 onGooglePayLoaded().catch(console.error);
@@ -263,8 +264,6 @@ const init = async (token) => {
         } else {
             document.getElementById("pay-google-pay").remove();
         }
-        //await new Promise(resolve => setTimeout(resolve, 2000));
-        document.getElementById("loading").classList.add("hide");
         const paymentMethods = document.getElementById("payment-methods");
         paymentMethods.classList.remove("hide");
         setTimeout(() => paymentMethods.classList.add("fade-in"), 100);
