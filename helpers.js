@@ -102,9 +102,6 @@ document.onclick = function(event) {
     if (event.target.classList.contains("modal")) {
         event.target.style.display = "none";
     }
-    document.querySelectorAll(".notification-modal").forEach((element) => {
-        element.remove();
-    })
 };
 document.addEventListener("DOMContentLoaded", function () {
     const recurring_label_element = document.querySelector("#recurring_label_div label.ms-label");
