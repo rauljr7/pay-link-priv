@@ -273,6 +273,10 @@ const init = async (token) => {
     document.getElementById('card_submit_button').addEventListener('click', function() {
       card_fields.submit().then((res) => {
           console.log(res);
+      })
+      .catch((error) => {
+        send_notification({"template": "payment_error"});
+        console.log(error);
       });
     });
   
