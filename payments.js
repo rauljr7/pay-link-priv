@@ -209,6 +209,17 @@ const init = async (token) => {
         document.getElementById("pay-apple-pay-div").remove();
         console.log("Apple Pay is not supported on this browser or device.");
     }
+    //Google Pay
+    if (paypal.Googlepay && payment_link.type !== "sub") {
+        load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
+            onGooglePayLoaded().catch(console.error);
+        }).catch(error => {
+            send_notification({"message": "There was an error with the Google Pay", "type": "alert"});
+            console.error("Error loading Google Pay SDK:", error);
+        });
+    } else {
+        document.getElementById("pay-google-pay").remove();
+    }
 
     const renders_array = [];
     payment_options_object.fundingSource = paypal.FUNDING.PAYPAL;
@@ -254,16 +265,6 @@ const init = async (token) => {
     }
     Promise.all(renders_array).then(async () => {
         document.getElementById("loading").classList.add("hide");
-        if (paypal.Googlepay && payment_link.type !== "sub") {
-            load_script_tag('https://pay.google.com/gp/p/js/pay.js').then(() => {
-                onGooglePayLoaded().catch(console.error);
-            }).catch(error => {
-                send_notification({"message": "There was an error with the Google Pay", "type": "alert"});
-                console.error("Error loading Google Pay SDK:", error);
-            });
-        } else {
-            document.getElementById("pay-google-pay").remove();
-        }
         const paymentMethods = document.getElementById("payment-methods");
         paymentMethods.classList.remove("hide");
         setTimeout(() => paymentMethods.classList.add("fade-in"), 100);
@@ -452,7 +453,6 @@ const init = async (token) => {
       paymentsClient.loadPaymentData(paymentDataRequest);
   }
   async function processPayment(paymentData) {
-    console.log(paymentData);
       return new Promise(async function(resolve, reject) {
           try {
               const order_request = await pay_operation({
