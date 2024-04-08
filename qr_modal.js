@@ -29,13 +29,12 @@ function generateQRCode() {
     let qrcode = new QRCode(qrContainer, {
         text: payment_url_string,
         width: 200,
-        download: "qr",
         height: 200,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
-    document.getElementById("qr-title-2").innerHTML += `<h4 class="qr-title" style="color:black">$` + payment_link.amount + ` USD to @` + payment_link.user + `</h4>`;
+    document.getElementById("qr-title-2").innerHTML = `<h4 class="qr-title" style="color:black">$` + payment_link.amount + ` USD to @` + payment_link.user + `</h4>`;
 }
 
 function usd_amount_sanitize(amount_string) {
