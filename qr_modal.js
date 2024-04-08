@@ -34,6 +34,7 @@ function generateQRCode() {
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
+    qrContainer.innerHTML += `<h4 class="qr-title" style="color:black">$` + payment_link.amount + ` USD to @` + payment_link.user + `</h4>`;
 }
 
 function usd_amount_sanitize(amount_string) {
