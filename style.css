@@ -80,11 +80,47 @@ apple-pay-button {
 }
 #social-icons-div {
   margin-top:7px;
-}
-#qr-modal-content {
+}#qr-modal-content {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  position: relative;
+  animation: modalFadeIn 0.5s, zoomIn 0.5s;
+}
+
+.qr-title, .qr-footer {
+  color: black;
+  margin: 10px 0; /* Adjust margin as needed */
+  text-align: center;
+}
+
+.qr-code img {
+  display: block;
+  max-width: 200px; /* Adjust based on your QR code size */
+  margin: auto; /* Centers the QR code image */
+}
+
+@keyframes modalFadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes zoomIn {
+  from {transform: scale(0);}
+  to {transform: scale(1);}
+}
+
 #pay-google-pay .gpay-button-fill .gpay-button {
   margin: 0 !important;
 }
@@ -142,26 +178,4 @@ apple-pay-button {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  max-width: 400px; /* Maximum width */
-  border-radius: 10px; /* Rounded corners */
-  position: relative;
-  animation: modalFadeIn .5s, zoomIn .5s; /* Fade in and zoom in animation */
-}
-
-@keyframes modalFadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-@keyframes zoomIn {
-  from {transform: scale(0.5);}
-  to {transform: scale(1);}
 }
