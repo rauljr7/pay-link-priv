@@ -105,9 +105,7 @@ document.onclick = function(event) {
 };
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("share").addEventListener("click", function() {
-        // Populate the input with the current URL
-        const currentUrl = window.location.href;
-        document.getElementById("share-url").value = currentUrl;
+        document.getElementById("share-url").value = build_payment_link_url();
 
         // Display the modal and overlay
         document.getElementById("modal-overlay").style.display = "block";
