@@ -104,6 +104,31 @@ document.onclick = function(event) {
     }
 };
 document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("share").addEventListener("click", function() {
+        // Populate the input with the current URL
+        const currentUrl = window.location.href;
+        document.getElementById("share-url").value = currentUrl;
+
+        // Display the modal and overlay
+        document.getElementById("modal-overlay").style.display = "block";
+        document.getElementById("share-modal").style.display = "block";
+    });
+
+    // Copy URL to clipboard when the copy button is clicked
+    document.getElementById("copy-url-btn").addEventListener("click", function() {
+        const shareUrlInput = document.getElementById("share-url");
+        shareUrlInput.select();
+        document.execCommand("copy");
+
+        // Optionally, display a confirmation message
+        send_notification({type: "success", message: "Link copied to clipboard!"});
+    });
+
+    // Hide the modal and overlay when clicking outside
+    document.getElementById("modal-overlay").addEventListener("click", function() {
+        this.style.display = "none";
+        document.getElementById("share-modal").style.display = "none";
+    });
     const recurring_label_element = document.querySelector("#recurring_label_div label.ms-label");
     if (payment_link.type === "sub") {
         if (recurring_label_element.classList.contains("hide")) {
