@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Display the modal and overlay
         document.getElementById("share-modal").style.display = "block";
+        document.getElementById("copy-url-btn").click();
     });
 
     // Copy URL to clipboard when the copy button is clicked
