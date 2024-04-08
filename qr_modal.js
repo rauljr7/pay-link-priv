@@ -29,6 +29,7 @@ function generateQRCode() {
     let qrcode = new QRCode(qrContainer, {
         text: payment_url_string,
         width: 200,
+        download: "qr",
         height: 200,
         colorDark : "#000000",
         colorLight : "#ffffff",
