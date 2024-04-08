@@ -98,12 +98,6 @@ apple-pay-button {
   position: relative;
   animation: modalFadeIn 0.5s, zoomIn 0.5s;
 }
-.modal-content .share-body {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 20px;
-}
 
 .share-url-input {
   padding: 10px;
