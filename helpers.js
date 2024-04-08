@@ -108,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("share-url").value = build_payment_link_url();
 
         // Display the modal and overlay
-        document.getElementById("modal-overlay").style.display = "block";
         document.getElementById("share-modal").style.display = "block";
     });
 
