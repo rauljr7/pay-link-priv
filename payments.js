@@ -271,33 +271,28 @@ const init = async (token) => {
     });
 
     document.getElementById('card_submit_button').addEventListener('click', function() {
-        
-        let emailInput = document.getElementById("email"); // Assuming "amount" is your email input's ID
+        let email_input_element = document.getElementById("email");
     
-    // Reset any previous custom messages
-    emailInput.setCustomValidity("");
-    
-    // Check if the email is valid according to native validation
-    if (emailInput.checkValidity()) {
-        console.log("The email is valid.");
-        // Proceed with valid email
-    } else {
-        // If you want to override the default validation message
-        var customMessage = "Please enter a valid email address.";
-        emailInput.setCustomValidity(customMessage);
+        // Reset any previous custom messages
+        email_input_element.setCustomValidity("");
         
-        // Report validity will now use your custom message
-        emailInput.reportValidity();
-    }
-
-      card_fields.submit().then((res) => {
-          console.log(res);
-      })
-      .catch((error) => {
-        send_notification({"message": "Please check your card information and try again.", "type": "warn"});
-        console.log(error.toString());
-      });
-    });
+        // If the email input is not valid
+        if (!email_input_element.checkValidity()) {
+            // If you want to override the default validation message for specific scenarios
+            var customMessage = "Enter Email Address to receive receipt.";
+            email_input_element.setCustomValidity(customMessage);
+            email_input_element.reportValidity();
+        } else {
+            console.log("The email is valid.");
+            card_fields.submit().then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+              send_notification({"message": "Please check your card information and try again.", "type": "warn"});
+              console.log(error.toString());
+            });
+        }
+    });    
   
     document.getElementById('use_apms').addEventListener('click', function() {
       document.getElementById("card_submit_button_div").style.display = "none";
