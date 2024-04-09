@@ -9,7 +9,6 @@ input::-webkit-inner-spin-button {
   padding-right:6px;
 }
 #card_submit_button_div {
-  display: none;
   padding-right: 7px;
   padding-left: 5px;
 }
