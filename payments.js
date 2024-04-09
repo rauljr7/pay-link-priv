@@ -217,7 +217,7 @@ const init = async (token) => {
             console.error("Error loading Google Pay SDK:", error);
         });
     } else {
-        document.getElementById("pay-google-pay").remove();
+        document.getElementById("pay-google-pay").classList.add("hide");
     }
 
     const renders_array = [];
@@ -225,11 +225,15 @@ const init = async (token) => {
     let paypal_button = window.paypal.Buttons(payment_options_object);
     if (paypal_button.isEligible()) {
         renders_array.push(paypal_button.render("#pay-paypal"));
+    } else {
+        document.getElementById("pay-paypal").classList.add("hide");
     }
     payment_options_object.fundingSource = paypal.FUNDING.VENMO;
     let venmo_button = window.paypal.Buttons(payment_options_object);
     if (venmo_button.isEligible()) {
         renders_array.push(venmo_button.render("#pay-venmo"));
+    } else {
+        document.getElementById("pay-venmo").classList.add("hide");
     }
 
     const card_style = {
@@ -261,6 +265,9 @@ const init = async (token) => {
         renders_array.push(cvv_field.render("#card-cvv-field-container"));
         const expiry_field = card_fields.ExpiryField(card_field_input_focus_event_object);
         renders_array.push(expiry_field.render("#card-expiry-field-container"));
+    } else {
+        document.getElementById("pay-card").classList.add("hide");
+        document.getElementById("card_submit_button_div").classList.add("hide");
     }
     Promise.all(renders_array).then(async () => {
         document.getElementById("loading").classList.add("hide");
