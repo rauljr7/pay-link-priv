@@ -270,6 +270,7 @@ const init = async (token) => {
     });
 
     document.getElementById('card_submit_button').addEventListener('click', function(event) {
+        event.preventDefault();
         let email_input = document.getElementById("email");
         email_input.setCustomValidity('');
         if (!email_input.checkValidity()) {
