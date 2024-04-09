@@ -273,6 +273,7 @@ const init = async (token) => {
         document.getElementById("card_submit_button_div").classList.add("hide");
     }
     Promise.all(renders_array).then(async () => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
         document.getElementById("loading").classList.add("hide");
         const payment_methods_div = document.getElementById("payment-methods");
         payment_methods_div.classList.remove("hide");
