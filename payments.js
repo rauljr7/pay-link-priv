@@ -271,9 +271,9 @@ const init = async (token) => {
     }
     Promise.all(renders_array).then(async () => {
         document.getElementById("loading").classList.add("hide");
-        const paymentMethods = document.getElementById("payment-methods");
-        paymentMethods.classList.remove("hide");
-        setTimeout(() => paymentMethods.classList.add("fade-in"), 100);
+        const payment_methods_div = document.getElementById("payment-methods");
+        payment_methods_div.classList.remove("hide");
+        setTimeout(() => payment_methods_div.classList.add("fade-in"), 100);
     });
 
     document.getElementById('card_submit_button').addEventListener('click', function(event) {
