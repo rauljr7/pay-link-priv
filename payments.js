@@ -271,10 +271,8 @@ const init = async (token) => {
 
     document.getElementById('card_submit_button').addEventListener('click', function(event) {
         let email_input = document.getElementById("email");
-        email_input.setCustomValidity('');
         if (!email_input.checkValidity()) {
             console.log("Validation failed.");
-            email_input.setCustomValidity("Please enter a valid email address.");
             email_input.reportValidity();
             return;
         }
