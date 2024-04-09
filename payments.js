@@ -255,7 +255,10 @@ const init = async (token) => {
             inputEvents: {
                 onFocus: function(data) {
                     document.getElementById("card_submit_button_div").style.display = "block";
-                    document.getElementById("apms").style.display = "none";
+                    document.getElementById("apms").classList.add("fade-out");
+                    payment_methods_div.addEventListener('animationend', () => {
+                        payment_methods_div.classList.remove("fade-out");
+                      }, { once: true });
                 }
             }
         }
