@@ -272,12 +272,11 @@ const init = async (token) => {
     document.getElementById('card_submit_button').addEventListener('click', function(event) {
         let email_input = document.getElementById("email");
         if (!email_input.checkValidity()) {
-            var custom_message = "Please enter a valid email address.";
+            let custom_message = "Please enter a valid email address.";
             email_input.setCustomValidity(custom_message);
-            if (!email_input.reportValidity()) {
-                event.preventDefault();
-                return;
-            }
+            email_input.reportValidity();
+            event.preventDefault();
+            return;
         }
         email_input.setCustomValidity("");
         card_fields.submit().then((res) => {
