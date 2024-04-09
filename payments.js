@@ -272,18 +272,12 @@ const init = async (token) => {
 
     document.getElementById('card_submit_button').addEventListener('click', function() {
         let email_input_element = document.getElementById("email");
-    
-        // Reset any previous custom messages
         email_input_element.setCustomValidity("");
-        
-        // If the email input is not valid
         if (!email_input_element.checkValidity()) {
-            // If you want to override the default validation message for specific scenarios
-            var customMessage = "Enter Email Address to receive receipt.";
-            email_input_element.setCustomValidity(customMessage);
+            var email_validation_error = "Enter Email Address to receive receipt.";
+            email_input_element.setCustomValidity(email_validation_error);
             email_input_element.reportValidity();
         } else {
-            console.log("The email is valid.");
             card_fields.submit().then((res) => {
                 console.log(res);
             })
