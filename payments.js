@@ -255,6 +255,8 @@ const init = async (token) => {
             inputEvents: {
                 onFocus: function(data) {
                     document.getElementById("card_submit_button_div").classList.remove("hide");
+                    document.getElementById("card-expiry-field-container").classList.remove("hide");
+                    document.getElementById("card-cvv-field-container").classList.remove("hide");
                     document.getElementById("email").classList.remove("hide");
                     document.getElementById("apms").classList.add("hide");
                 }
@@ -297,6 +299,8 @@ const init = async (token) => {
     
     document.getElementById('use_apms').addEventListener('click', function() {
       document.getElementById("card_submit_button_div").classList.add("hide");
+      document.getElementById("card-expiry-field-container").classList.add("hide");
+      document.getElementById("card-cvv-field-container").classList.add("hide");
       document.getElementById("apms").classList.remove("hide");
       document.getElementById("email").classList.add("hide");
     });
