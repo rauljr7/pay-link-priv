@@ -254,11 +254,8 @@ const init = async (token) => {
         card_field_input_focus_event_object = {
             inputEvents: {
                 onFocus: function(data) {
-                    document.getElementById("card_submit_button_div").classList.remove("hide");
-                    document.getElementById("apms").classList.add("fade-out");
-                    document.getElementById("apms").addEventListener('animationend', () => {
-                        document.getElementById("apms").classList.remove("fade-out");
-                      }, { once: true });
+                    document.getElementById("card_submit_button_div").style.display = "block";
+                    document.getElementById("apms").style.display = "none";
                 }
             }
         }
@@ -298,8 +295,8 @@ const init = async (token) => {
     });
     
     document.getElementById('use_apms').addEventListener('click', function() {
-      document.getElementById("card_submit_button_div").classList.add("hide");
-      document.getElementById("apms").classList.remove("hide");
+      document.getElementById("card_submit_button_div").style.display = "none";
+      document.getElementById("apms").style.display = "block";
     });
 }).catch((error) => {
     send_notification({"template": "generic_error"});
