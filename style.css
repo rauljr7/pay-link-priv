@@ -80,7 +80,8 @@ apple-pay-button {
 }
 #social-icons-div {
   margin-top:7px;
-}#qr-modal-content {
+}
+#qr-modal-content {
   display: flex;
   flex-direction: column;
   align-items: center;
