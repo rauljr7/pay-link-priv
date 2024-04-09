@@ -272,7 +272,7 @@ const init = async (token) => {
 
     document.getElementById('card_submit_button').addEventListener('click', function() {
         
-        let emailInput = document.getElementById("amount"); // Assuming "amount" is your email input's ID
+        let emailInput = document.getElementById("email"); // Assuming "amount" is your email input's ID
     
     // Reset any previous custom messages
     emailInput.setCustomValidity("");
