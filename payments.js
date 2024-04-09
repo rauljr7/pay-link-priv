@@ -269,24 +269,25 @@ const init = async (token) => {
         setTimeout(() => paymentMethods.classList.add("fade-in"), 100);
     });
 
-    document.getElementById('card_submit_button').addEventListener('click', function() {
-        let email_input_element = document.getElementById("email");
-        email_input_element.setCustomValidity("");
-        if (!email_input_element.checkValidity()) {
-            var email_validation_error = "Enter Email Address to receive receipt.";
-            email_input_element.setCustomValidity(email_validation_error);
-            email_input_element.reportValidity();
-        } else {
-            card_fields.submit().then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-              send_notification({"message": "Please check your card information and try again.", "type": "warn"});
-              console.log(error.toString());
-            });
+    document.getElementById('card_submit_button').addEventListener('click', function(event) {
+        let email_input = document.getElementById("email");
+        if (!email_input.checkValidity()) {
+            var custom_message = "Please enter a valid email address.";
+            email_input.setCustomValidity(custom_message);
+            if (!email_input.reportValidity()) {
+                event.preventDefault();
+                return;
+            }
         }
-    });    
-  
+        email_input.setCustomValidity("");
+        card_fields.submit().then((res) => {
+            console.log(res);
+        }).catch((error) => {
+            send_notification({"message": "Please check your card information and try again.", "type": "warn"});
+            console.log(error.toString());
+        });
+    });
+      
     document.getElementById('use_apms').addEventListener('click', function() {
       document.getElementById("card_submit_button_div").style.display = "none";
       document.getElementById("apms").style.display = "block";
