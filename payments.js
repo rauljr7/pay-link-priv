@@ -273,6 +273,7 @@ const init = async (token) => {
         let email_input = document.getElementById("email");
         email_input.setCustomValidity('');
         if (!email_input.checkValidity()) {
+            console.log("ran");
             email_input.setCustomValidity("Please enter a valid email address.");
             email_input.reportValidity();
             event.preventDefault();
