@@ -187,7 +187,6 @@ const init = async (token) => {
           console.log(`Order Canceled - ID: ${data.orderID}`);
       },
       onError(err) {
-        send_notification({"template": "payment_error"});
         console.error(err);
       }
   };
