@@ -177,7 +177,7 @@ apple-pay-button {
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 #payment-methods {
