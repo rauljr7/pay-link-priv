@@ -256,8 +256,8 @@ const init = async (token) => {
                 onFocus: function(data) {
                     document.getElementById("card_submit_button_div").style.display = "block";
                     document.getElementById("apms").classList.add("fade-out");
-                    payment_methods_div.addEventListener('animationend', () => {
-                        payment_methods_div.classList.remove("fade-out");
+                    document.getElementById("apms").addEventListener('animationend', () => {
+                        document.getElementById("apms").classList.remove("fade-out");
                       }, { once: true });
                 }
             }
