@@ -271,14 +271,19 @@ const init = async (token) => {
 
     document.getElementById('card_submit_button').addEventListener('click', function(event) {
         let email_input = document.getElementById("email");
+        // Clear any previously set custom validity to ensure fresh validation
+        email_input.setCustomValidity('');
+    
         if (!email_input.checkValidity()) {
-            let custom_message = "Please enter a valid email address.";
-            email_input.setCustomValidity(custom_message);
+            // Apply custom message only if the field is currently invalid.
+            email_input.setCustomValidity("Please enter a valid email address.");
+            // Attempt to report validity which will now use either the browser's message or the custom one if set.
             email_input.reportValidity();
+            // Prevent the form from submitting due to invalid input.
             event.preventDefault();
             return;
         }
-        email_input.setCustomValidity("");
+        // If this point is reached, the email is valid and the form can be submitted or further actions taken.
         card_fields.submit().then((res) => {
             console.log(res);
         }).catch((error) => {
@@ -286,6 +291,7 @@ const init = async (token) => {
             console.log(error.toString());
         });
     });
+    
       
     document.getElementById('use_apms').addEventListener('click', function() {
       document.getElementById("card_submit_button_div").style.display = "none";
