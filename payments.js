@@ -271,6 +271,25 @@ const init = async (token) => {
     });
 
     document.getElementById('card_submit_button').addEventListener('click', function() {
+        
+        let emailInput = document.getElementById("amount"); // Assuming "amount" is your email input's ID
+    
+    // Reset any previous custom messages
+    emailInput.setCustomValidity("");
+    
+    // Check if the email is valid according to native validation
+    if (emailInput.checkValidity()) {
+        console.log("The email is valid.");
+        // Proceed with valid email
+    } else {
+        // If you want to override the default validation message
+        var customMessage = "Please enter a valid email address.";
+        emailInput.setCustomValidity(customMessage);
+        
+        // Report validity will now use your custom message
+        emailInput.reportValidity();
+    }
+
       card_fields.submit().then((res) => {
           console.log(res);
       })
