@@ -254,7 +254,7 @@ const init = async (token) => {
         card_field_input_focus_event_object = {
             inputEvents: {
                 onFocus: function(data) {
-                    document.getElementById("card_submit_button_div").style.display = "block";
+                    document.getElementById("card_submit_button_div").classList.remove("hide");
                     document.getElementById("apms").classList.add("fade-out");
                     document.getElementById("apms").addEventListener('animationend', () => {
                         document.getElementById("apms").classList.remove("fade-out");
