@@ -270,14 +270,12 @@ const init = async (token) => {
     });
 
     document.getElementById('card_submit_button').addEventListener('click', function(event) {
-        event.preventDefault();
         let email_input = document.getElementById("email");
         email_input.setCustomValidity('');
         if (!email_input.checkValidity()) {
-            console.log("ran");
+            console.log("Validation failed.");
             email_input.setCustomValidity("Please enter a valid email address.");
             email_input.reportValidity();
-            event.preventDefault();
             return;
         }
         card_fields.submit().then((res) => {
@@ -287,11 +285,10 @@ const init = async (token) => {
             console.log(error.toString());
         });
     });
+    document.getElementById('email').addEventListener('input', function() {
+        this.setCustomValidity('');
+    });
     
-    // Optional: Resetting form or handling after submission failure can go here.
-    
-    
-      
     document.getElementById('use_apms').addEventListener('click', function() {
       document.getElementById("card_submit_button_div").style.display = "none";
       document.getElementById("apms").style.display = "block";
