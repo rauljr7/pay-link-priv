@@ -298,8 +298,8 @@ const init = async (token) => {
     });
     
     document.getElementById('use_apms').addEventListener('click', function() {
-      document.getElementById("card_submit_button_div").style.display = "none";
-      document.getElementById("apms").style.display = "block";
+      document.getElementById("card_submit_button_div").classList.add("hide");
+      document.getElementById("apms").classList.remove("hide");
     });
 }).catch((error) => {
     send_notification({"template": "generic_error"});
