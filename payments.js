@@ -255,6 +255,7 @@ const init = async (token) => {
             inputEvents: {
                 onFocus: function(data) {
                     document.getElementById("card_submit_button_div").style.display = "block";
+                    document.getElementById("email").style.display = "block";
                     document.getElementById("apms").style.display = "none";
                 }
             }
@@ -297,6 +298,7 @@ const init = async (token) => {
     document.getElementById('use_apms').addEventListener('click', function() {
       document.getElementById("card_submit_button_div").style.display = "none";
       document.getElementById("apms").style.display = "block";
+      document.getElementById("email").style.display = "none";
     });
 }).catch((error) => {
     send_notification({"template": "generic_error"});
