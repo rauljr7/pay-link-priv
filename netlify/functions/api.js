@@ -1,26 +1,8 @@
 import fetch from 'node-fetch';
 
-const CLIENT_URI = "pmnt.link";
-const ENVIRONMENT = "sandbox";
-
-const PROD_PAYPAL_CLIENT = "AeDmnda7EyiwfDRYoSWT-vfbUDLCccELFFzegBY7XNfWK8zltcZiKii9OrOYWgCZAFO1NltL8QRpbl6S";
-const PROD_PAYPAL_SECRET = "ENJ-_usZkRF8i0FyvG45qAUjg_z0ip0gCQ7vg4mqxygPAibbiemAxqm2FB0IxsZTYXKNVyPMMBLsZduE";
-
-const SB_PAYPAL_CLIENT = "AbAnMDTMIq0lBrP_NV12I9QcU494ZtfLYQcdIk1y_vOae8g24zpO12WAqn5MA8buSahDzR9UrpGls30f";
-const SB_PAYPAL_SECRET = "EGaMHuoafSURk8Dl3h_Un0ygj_XP_A_V7Cd3GXLvyVfUAtuidH7PNFpdp-aX_BMR4dBZRUBm-OCIwtHa";
-
-let PAYPAL_CLIENT;
-let PAYPAL_SECRET;
-let PAYPAL_ENDPOINT;
-if (ENVIRONMENT === "sandbox") {
-    PAYPAL_CLIENT = SB_PAYPAL_CLIENT;
-    PAYPAL_SECRET = SB_PAYPAL_SECRET;
-    PAYPAL_ENDPOINT = "https://api-m.sandbox.paypal.com";
-} else {
-    PAYPAL_CLIENT = PROD_PAYPAL_CLIENT;
-    PAYPAL_SECRET = PROD_PAYPAL_SECRET;
-    PAYPAL_ENDPOINT = "https://api-m.paypal.com";
-}
+const GLOBAL_TURNSTILE_GENERAL_SECRET = process.env.GLOBAL_TURNSTILE_GENERAL_SECRET;
+const PAYPAL_CLIENT = process.env.PAYPAL_CLIENT;
+const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
 
 const generate_response = (message) => {
     if (message) {
@@ -193,7 +175,7 @@ export const handler = async (event) => {
  else
   if (method === "get_client_id") {
     if (turnstile_id) {
-            let turnstile_secretKey = '0x4AAAAAAAWGXDT3gaviwCfTEL6S2EsQpYs';
+            let turnstile_secretKey = GLOBAL_TURNSTILE_GENERAL_SECRET;
       const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
           method: 'POST',
           headers: {
