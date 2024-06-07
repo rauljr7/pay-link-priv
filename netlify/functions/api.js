@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 const GLOBAL_TURNSTILE_GENERAL_SECRET = process.env.GLOBAL_TURNSTILE_GENERAL_SECRET;
 const PAYPAL_CLIENT = process.env.PAYPAL_CLIENT;
 const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
+const PAYPAL_ENDPOINT = "https://api-m.sandbox.paypal.com";
 
 const generate_response = (message) => {
     if (message) {
