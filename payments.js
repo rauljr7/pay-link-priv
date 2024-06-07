@@ -4,7 +4,7 @@ window.turnstile_loaded_once = false;
 window.turnstile_loaded = function() {
     console.log("parent func");
   turnstile.render('#turstile_id', {
-      sitekey: '0x4AAAAAAAWGXMWIf7aN7NSS',
+      sitekey: '0x4AAAAAAAU4xIJdV9ZJVc_p',
       callback: init
   });
 };
