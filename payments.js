@@ -32,7 +32,7 @@ const init = async (token) => {
   } else {
       return;
   }
-  const payment_endpoint = "https://wke23rj4i7ezl6bzxcqu33uq4m0vszcn.lambda-url.us-east-1.on.aws/";
+  const payment_endpoint = "/.netlify/functions/api/";
   let client_id_fetch_options = {
       "method": "POST",
       "body": ""
