@@ -286,6 +286,7 @@ const init = async (token) => {
             email_input.reportValidity();
             return;
         }
+        resultMessage("Loading...");
         card_fields.submit().then((res) => {
             console.log(res);
         }).catch((error) => {
