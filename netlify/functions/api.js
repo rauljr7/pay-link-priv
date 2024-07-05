@@ -15,23 +15,30 @@ const generate_response = (message) => {
     }
 };
 
-const get_access_token = async (with_id_token = false) => {
+const get_access_token = async (options = {}) => {
+  const { will_vault = false, fastlane = false } = options;
+  
   try {
     const auth = Buffer.from(`${PAYPAL_CLIENT}:${PAYPAL_SECRET}`).toString("base64");
     let requestBody = "grant_type=client_credentials";
-    if (with_id_token) {
+
+    if (will_vault) {
       requestBody += "&response_type=id_token";
     }
-    
+
+    if (fastlane) {
+      requestBody = "grant_type=client_credentials&response_type=token";
+    }
+
     const access_token_request = await fetch(`${PAYPAL_ENDPOINT}/v1/oauth2/token`, {
       method: "POST",
       body: requestBody,
       headers: { "Authorization": `Basic ${auth}`, "Content-Type": "application/x-www-form-urlencoded" },
     });
-    
+
     const access_token_response = await access_token_request.json();
-    
-    if (!access_token_request) {
+
+    if (!access_token_request.ok) {
       throw new Error(access_token_response.error_description || "Failed to fetch access token");
     }
 
@@ -40,7 +47,7 @@ const get_access_token = async (with_id_token = false) => {
       id_token: access_token_response.id_token
     };
   } catch (error) {
-      return generate_response(error);
+    return generate_response(error);
   }
 }
 
@@ -189,7 +196,7 @@ export const handler = async (event) => {
       if (cloudflareTurnstileVerificationResult.success) {
         let id_token;
         if (type === "sub") {
-          ({ id_token } = await get_access_token(true));
+          ({ id_token } = await get_access_token({"will_vault": true}));
         }
           return {
               statusCode: 200,
@@ -205,7 +212,7 @@ export const handler = async (event) => {
     } else {
         let id_token;
         if (type === "sub") {
-          ({ id_token } = await get_access_token(true));
+          ({ id_token } = await get_access_token({"will_vault": true}));
         }
         return {
             statusCode: 200,
